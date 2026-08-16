@@ -1,0 +1,560 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>sellfit — offline CLI + 2026 policy dataset</title>
+  <meta name="description" content="sellfit is an offline CLI and a cited 2026 merchant-policy dataset. Authored by a disclosed AI agent. Not legal advice.">
+  <style>
+    :root {
+      color-scheme: light dark;
+      --paper: #f3eee4;
+      --ink: #1b1712;
+      --muted: #5c564c;
+      --faint: #8a8274;
+      --rule: #cfc4b2;
+      --surface: #faf6ee;
+      --brick: #8f2d22;
+      --brick-ink: #6e2018;
+      --ok: #1b5e38;
+      --ok-wash: #d7ebde;
+      --rev: #8a5a00;
+      --rev-wash: #f3e4b8;
+      --no: #9b1c14;
+      --no-wash: #f3d6d1;
+      --focus: #2c4a6e;
+      --mono: ui-monospace, "SFMono-Regular", "Cascadia Code", Menlo, Consolas, monospace;
+      --sans: "Segoe UI", system-ui, -apple-system, sans-serif;
+      --serif: "Iowan Old Style", "Palatino Linotype", Palatino, "Book Antiqua", Georgia, serif;
+    }
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --paper: #14110d;
+        --ink: #ece4d6;
+        --muted: #b3a894;
+        --faint: #8a8070;
+        --rule: #3a3328;
+        --surface: #1c1813;
+        --brick: #e08a7c;
+        --brick-ink: #f0c2ba;
+        --ok: #7dcea0;
+        --ok-wash: #1a3326;
+        --rev: #e0b84a;
+        --rev-wash: #3a2e10;
+        --no: #f0a098;
+        --no-wash: #3a1c18;
+        --focus: #9ab4d4;
+      }
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      background: var(--paper);
+      color: var(--ink);
+      font: 16.5px/1.5 var(--sans);
+    }
+    a { color: var(--brick-ink); }
+    a:hover { text-decoration-thickness: 2px; }
+    :focus-visible {
+      outline: 2px solid var(--focus);
+      outline-offset: 2px;
+    }
+    code, kbd, .mono { font-family: var(--mono); font-size: .92em; }
+    .skip {
+      position: absolute; left: -999px; top: 0;
+    }
+    .skip:focus { left: 1rem; top: 1rem; background: var(--surface); padding: .4rem .6rem; z-index: 2; }
+    .disclosure {
+      background: var(--ink);
+      color: var(--paper);
+      font-size: .92rem;
+      letter-spacing: .01em;
+    }
+    .disclosure .wrap { padding: .7rem 0; }
+    .disclosure strong { font-weight: 700; }
+    .wrap {
+      width: min(1080px, calc(100% - 2.4rem));
+      margin: 0 auto;
+    }
+    header.mast {
+      padding: 2.1rem 0 1.4rem;
+      border-bottom: 1px solid var(--rule);
+    }
+    .kicker {
+      font-family: var(--mono);
+      font-size: .78rem;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      color: var(--brick);
+      margin: 0 0 .45rem;
+    }
+    h1 {
+      font-family: var(--serif);
+      font-weight: 600;
+      font-size: clamp(2rem, 4vw, 2.75rem);
+      line-height: 1.05;
+      letter-spacing: -.02em;
+      margin: 0 0 .7rem;
+    }
+    .lede {
+      max-width: 38rem;
+      font-size: 1.12rem;
+      color: var(--ink);
+      margin: 0 0 1rem;
+    }
+    .meta {
+      color: var(--muted);
+      font-size: .9rem;
+    }
+    .meta code { color: var(--ink); }
+    h2 {
+      font-family: var(--serif);
+      font-size: 1.45rem;
+      font-weight: 600;
+      margin: 0 0 .55rem;
+    }
+    h3 {
+      font-family: var(--serif);
+      font-size: 1.12rem;
+      font-weight: 600;
+      margin: 0 0 .35rem;
+    }
+    section { padding: 1.6rem 0; border-bottom: 1px solid var(--rule); }
+    .split {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.4rem 2rem;
+    }
+    .muted { color: var(--muted); }
+    ul.plain { margin: .3rem 0 0; padding-left: 1.15rem; }
+    ul.plain li { margin: .2rem 0; }
+    .platforms {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: .6rem;
+    }
+    .plat-card {
+      background: var(--surface);
+      border: 1px solid var(--rule);
+      padding: .7rem .75rem .65rem;
+    }
+    .plat-card .n {
+      font-family: var(--serif);
+      font-size: 1.55rem;
+      line-height: 1;
+      display: block;
+      margin: .15rem 0 .25rem;
+    }
+    .plat-card small { color: var(--muted); display: block; font-size: .78rem; }
+    .legend {
+      display: flex;
+      flex-wrap: wrap;
+      gap: .5rem .7rem;
+    }
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      gap: .4rem;
+      padding: .22rem .55rem;
+      border: 1px solid var(--rule);
+      background: var(--surface);
+      font-size: .86rem;
+      font-weight: 650;
+    }
+    .pill.allowed { color: var(--ok); background: var(--ok-wash); border-color: transparent; }
+    .pill.restricted_review { color: var(--rev); background: var(--rev-wash); border-color: transparent; }
+    .pill.prohibited { color: var(--no); background: var(--no-wash); border-color: transparent; }
+    .examples {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: .9rem;
+    }
+    .slip {
+      background: var(--surface);
+      border: 1px solid var(--rule);
+      padding: .85rem 1rem 1rem;
+    }
+    .slip pre {
+      margin: .55rem 0 0;
+      white-space: pre-wrap;
+      font-family: var(--mono);
+      font-size: .78rem;
+      line-height: 1.45;
+      color: var(--ink);
+    }
+    .pro {
+      background: var(--surface);
+      border-left: 4px solid var(--brick);
+      padding: .85rem 1rem;
+    }
+    .controls {
+      display: flex;
+      flex-wrap: wrap;
+      gap: .55rem .7rem;
+      align-items: end;
+      position: sticky;
+      top: 0;
+      z-index: 1;
+      background: var(--paper);
+      padding: .7rem 0 .55rem;
+      border-bottom: 1px solid var(--rule);
+    }
+    label.ctl {
+      display: flex;
+      flex-direction: column;
+      gap: .2rem;
+      font-size: .78rem;
+      color: var(--muted);
+      letter-spacing: .03em;
+      text-transform: uppercase;
+    }
+    input, select {
+      font: 15px/1.3 var(--sans);
+      padding: .42rem .5rem;
+      border: 1px solid var(--rule);
+      background: var(--surface);
+      color: var(--ink);
+      min-width: 10rem;
+    }
+    input[type="search"] { min-width: 16rem; }
+    #count { color: var(--muted); font-size: .9rem; padding-bottom: .35rem; }
+    .load-note { color: var(--muted); font-size: .88rem; margin: .6rem 0 0; }
+    .load-note.err { color: var(--no); }
+    .ledger { margin-top: .9rem; display: grid; gap: .55rem; }
+    article.rule {
+      background: var(--surface);
+      border: 1px solid var(--rule);
+      padding: .7rem .8rem .75rem;
+    }
+    article.rule header {
+      display: flex;
+      flex-wrap: wrap;
+      gap: .35rem .6rem;
+      align-items: baseline;
+      margin-bottom: .3rem;
+    }
+    article.rule .rid { font-weight: 650; }
+    article.rule .platn { color: var(--muted); font-size: .88rem; }
+    article.rule .sum { margin: .15rem 0 .35rem; }
+    article.rule blockquote {
+      margin: 0 0 .4rem;
+      padding-left: .7rem;
+      border-left: 2px solid var(--rule);
+      color: var(--muted);
+      font-size: .92rem;
+    }
+    article.rule .src { font-size: .82rem; color: var(--faint); word-break: break-word; }
+    footer.col {
+      padding: 1.4rem 0 2.4rem;
+      color: var(--muted);
+      font-size: .88rem;
+    }
+    footer.col p { margin: .4rem 0; max-width: 42rem; }
+    @media (max-width: 900px) {
+      .platforms { grid-template-columns: 1fr 1fr; }
+    }
+    @media (max-width: 840px) {
+      .split, .examples { grid-template-columns: 1fr; }
+      input[type="search"] { min-width: 0; width: 100%; }
+      .controls label.ctl { flex: 1 1 10rem; }
+      .wrap { width: calc(100% - 1.6rem); }
+    }
+    @media (max-width: 520px) {
+      .platforms { grid-template-columns: 1fr; }
+    }
+    @media print {
+      .disclosure { color: #000; background: #fff; border-bottom: 2px solid #000; }
+      .controls { position: static; }
+      body { background: #fff; color: #000; }
+    }
+  </style>
+</head>
+<body>
+  <a class="skip" href="#dataset">Skip to dataset</a>
+  <div class="disclosure">
+    <div class="wrap">
+      <strong>Authored by a disclosed AI agent. Not legal advice.</strong>
+      A keyword matcher is not a lawyer, a reviewer, or a guarantee of approval.
+      Re-check the official URL on every rule before you rely on a verdict.
+    </div>
+  </div>
+
+  <header class="mast">
+    <div class="wrap">
+      <p class="kicker">v0.1.0 · dataset 2026-08 · MIT · unpublished</p>
+      <h1>sellfit</h1>
+      <p class="lede">
+        An offline CLI plus a cited 2026 merchant-of-record and store-policy
+        dataset. Give it a one-line product idea. It returns the worst matching
+        verdict per platform — quote, URL, and the date the page was fetched.
+      </p>
+      <p class="meta">
+        No model at runtime. No network. Python 3 stdlib.
+        <code>python3 -m sellfit check "your idea"</code>
+      </p>
+      <p class="meta">
+        Guides:
+        <a href="polar-acceptable-use.html">Polar acceptable use</a>
+        ·
+        <a href="lemon-prohibited-products.html">Lemon Squeezy prohibited products</a>
+      </p>
+    </div>
+  </header>
+
+  <main>
+    <section>
+      <div class="wrap split">
+        <div>
+          <h2>What it is</h2>
+          <ul class="plain">
+            <li>A local MIT package: classifier, tests, and <code>docs/2026-08.json</code>.</li>
+            <li>Five surfaces: Polar AUP (25 Mar 2026), Lemon Squeezy prohibited products, Stripe restricted businesses, Chrome Web Store, GitHub account rules.</li>
+            <li>Each rule carries a short verbatim quote from an official page fetched 16 Aug 2026.</li>
+            <li>This page is the dataset viewer. It runs from <code>file://</code> — the JSON is inlined, so you do not need a server.</li>
+          </ul>
+        </div>
+        <div>
+          <h2>What it is not</h2>
+          <ul class="plain">
+            <li>Not legal advice, not Polar’s opinion, not a promise you will be approved.</li>
+            <li>Not a live crawl. Policies move; the <code>last_checked</code> date is the claim.</li>
+            <li>Not a paid directory, not outreach, not a tip jar.</li>
+            <li>Not published. A human still has to create the GitHub account. See <code>PUBLISH.md</code>.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="wrap">
+        <h2>Platforms in v0</h2>
+        <p class="muted" style="margin-top:0">Rule counts come from the inlined 2026-08 cut.</p>
+        <div class="platforms" id="platform-cards"></div>
+      </div>
+    </section>
+
+    <section>
+      <div class="wrap">
+        <h2>Verdict legend</h2>
+        <div class="legend" style="margin-top:.6rem">
+          <span class="pill allowed">allowed</span>
+          <span class="muted">The fetched page lists this kind of product as acceptable (still not a review decision).</span>
+        </div>
+        <div class="legend" style="margin-top:.45rem">
+          <span class="pill restricted_review">restricted_review</span>
+          <span class="muted">Closer review or extra diligence. May still be refused.</span>
+        </div>
+        <div class="legend" style="margin-top:.45rem">
+          <span class="pill prohibited">prohibited</span>
+          <span class="muted">The fetched page names this category as not allowed.</span>
+        </div>
+        <p class="muted" style="margin:.7rem 0 0">Chrome Web Store is <code>n/a</code> unless the idea is an extension, theme, or add-on. GitHub account-creation rules are a publish-account note, not an allowed product default.</p>
+      </div>
+    </section>
+
+    <section>
+      <div class="wrap">
+        <h2>Two checks from the test suite</h2>
+        <p class="muted" style="margin-top:0">Same commands a stranger can run offline after unzipping the tree.</p>
+        <div class="examples">
+          <article class="slip">
+            <h3>Polar AUP CLI → allowed</h3>
+            <p class="muted" style="margin:.15rem 0 0">Exit 0 — at least one product-fit platform is allowed or restricted_review.</p>
+            <pre>python3 -m sellfit check "MIT-licensed CLI that checks Polar AUP"
+
+polar   ALLOWED     polar-a-software
+lemon   ALLOWED     lemon-accept-digital
+stripe  ALLOWED     stripe-scope
+cws     N/A
+github  N/A</pre>
+          </article>
+          <article class="slip">
+            <h3>Cold email → prohibited</h3>
+            <p class="muted" style="margin:.15rem 0 0">Exit 2 — every product-fit platform is prohibited (<code>n/a</code> omitted).</p>
+            <pre>python3 -m sellfit check "cold email SaaS"
+
+polar   PROHIBITED  polar-8
+lemon   PROHIBITED  lemon-services
+stripe  PROHIBITED  stripe-telemarketing
+cws     N/A
+github  N/A</pre>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="wrap">
+        <div class="pro">
+          <h2>Pro — not for sale yet</h2>
+          <p style="margin:.35rem 0 0">
+            A later <strong>$12/month</strong> SKU: a policy-diff JSON feed plus a GitHub Action
+            that fails CI when a cited page moves. Software we own — not a directory,
+            not donations, not outreach. The MIT CLI stays free.
+            Draft copy is in <code>drafts/polar-pro-copy.md</code>. There is no checkout.
+            Do not open Polar until this page is live on a human-created GitHub account.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section id="dataset">
+      <div class="wrap">
+        <h2>2026-08 dataset</h2>
+        <p class="muted" style="margin-top:0">
+          Live filter of the inlined JSON. Sibling file
+          <code>2026-08.json</code> is the source of truth when this page is hosted.
+          On <code>file://</code>, browsers often block that fetch — the copy below is why the table still fills.
+        </p>
+        <div class="controls">
+          <label class="ctl">platform
+            <select id="platform">
+              <option value="">all</option>
+            </select>
+          </label>
+          <label class="ctl">verdict
+            <select id="verdict">
+              <option value="">all</option>
+              <option value="allowed">allowed</option>
+              <option value="restricted_review">restricted_review</option>
+              <option value="prohibited">prohibited</option>
+            </select>
+          </label>
+          <label class="ctl">search
+            <input id="q" type="search" placeholder="rule, category, quote, URL" autocomplete="off">
+          </label>
+          <span id="count"></span>
+        </div>
+        <p id="load-note" class="load-note"></p>
+        <div id="rows" class="ledger"></div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="col">
+    <div class="wrap">
+      <p>
+        Stripe URL substitution: <code>docs.stripe.com/restricted-businesses</code> returned 404
+        on 16 Aug 2026. The dataset uses
+        <a href="https://stripe.com/legal/restricted-businesses">https://stripe.com/legal/restricted-businesses</a>
+        (last updated 2026-05-13).
+      </p>
+      <p>
+        MIT license on the software. Policy text remains the publishers’
+        (Polar, Lemon Squeezy, Stripe, Google, GitHub). Quotes are short
+        excerpts for identification. Re-fetch every <code>source_url</code> before you ship.
+      </p>
+      <p>
+        Human publish runbook: <code>PUBLISH.md</code>. Authorship: <code>AI-AUTHORSHIP.md</code>.
+        Do not sign up from an agent.
+      </p>
+    </div>
+  </footer>
+
+  <script type="application/json" id="sellfit-data">{"dataset":"sellfit-policies","version":"2026-08","last_checked":"2026-08-16","authored_by":"disclosed AI agent","disclaimer":"Not legal advice. Quotes are verbatim excerpts from official pages fetched on last_checked. Re-check sources before relying. This dataset was authored by a disclosed AI agent.","substitutions":[{"requested":"https://docs.stripe.com/restricted-businesses","status":"404","used":"https://stripe.com/legal/restricted-businesses","note":"Canonical Stripe Prohibited and Restricted Businesses page, last updated 2026-05-13. Also reachable at https://stripe.com/restricted-businesses."}],"sources":[{"platform":"polar","url":"https://polar.sh/legal/acceptable-use-policy","effective_date":"2026-03-25"},{"platform":"polar","url":"https://polar.sh/docs/merchant-of-record/account-reviews","effective_date":"2026-08-16"},{"platform":"lemon","url":"https://docs.lemonsqueezy.com/help/getting-started/prohibited-products","effective_date":"2026-08-16"},{"platform":"stripe","url":"https://stripe.com/legal/restricted-businesses","effective_date":"2026-05-13"},{"platform":"cws","url":"https://developer.chrome.com/docs/webstore/program-policies/policies","effective_date":"2026-08-16"},{"platform":"cws","url":"https://developer.chrome.com/docs/webstore/program-policies/trader-verification-faq","effective_date":"2026-08-16"},{"platform":"github","url":"https://docs.github.com/en/site-policy/github-terms/github-terms-of-service","effective_date":"2026-04-27"}],"rules":[{"platform":"polar","rule_id":"polar-a-software","verdict":"allowed","category":"software-saas","summary":"Polar lists Software and SaaS as acceptable products you may sell.","source_url":"https://polar.sh/legal/acceptable-use-policy","source_effective_date":"2026-03-25","last_checked":"2026-08-16","quote":"Software & SaaS;","tags":["software_saas","cli","library"]},{"platform":"polar","rule_id":"polar-a-digital","verdict":"allowed","category":"digital-products","summary":"Polar accepts digital products such as templates, eBooks, PDFs, and code.","source_url":"https://polar.sh/legal/acceptable-use-policy","source_effective_date":"2026-03-25","last_checked":"2026-08-16","quote":"Digital products: Templates, eBooks, PDFs, code, icons, fonts, design assets, photos, videos, audio, and similar digital assets;","tags":["digital_product","code","templates"]},{"platform":"polar","rule_id":"polar-a-premium","verdict":"allowed","category":"premium-content","summary":"Polar accepts premium content and access such as courses and GitHub repo access.","source_url":"https://polar.sh/legal/acceptable-use-policy","source_effective_date":"2026-03-25","last_checked":"2026-08-16","quote":"Premium content & access: Discord server access, GitHub repository access, courses, and content requiring a subscription.","tags":["premium_content","course"]},{"platform":"polar","rule_id":"polar-a-fulfillment","verdict":"allowed","category":"digital-fulfillment","summary":"Acceptable Polar sales are digital goods or services Polar or your API can fulfill immediately.","source_url":"https://polar.sh/legal/acceptable-use-policy","source_effective_date":"2026-03-25","last_checked":"2026-08-16","quote":"Generally, acceptable services are digital goods, software, or services that can be fulfilled by (1) Polar on your behalf (License Keys, File Downloads, GitHub or Discord invites, or private links) or (2) your site/service using our APIs to grant immediate access to digital assets or services for customers with a one-time purchase or subscription.","tags":["software_saas","digital_product"]},{"platform":"polar","rule_id":"polar-not-physical-human","verdict":"prohibited","category":"physical-or-human-services","summary":"Polar is not designed for companies whose primary offering is human services or physical goods.","source_url":"https://polar.sh/legal/acceptable-use-policy","source_effective_date":"2026-03-25","last_checked":"2026-08-16","quote":"If your company’s primary offering is human services or the sale of physical goods, the Services are not designed for and should not be used by you.","tags":["physical","human_services","dropshipping"]},{"platform":"polar","rule_id":"polar-1","verdict":"prohibited","category":"physical-products","summary":"Physical products are prohibited on Polar.","source_url":"https://polar.sh/legal/acceptable-use-policy","source_effective_date":"2026-03-25","last_checked":"2026-08-16","quote":"Physical products;","tags":["physical","dropshipping"]},{"platform":"polar","rule_id":"polar-2","verdict":"prohibited","category":"human-services","summary":"Human services are prohibited on Polar.","source_url":"https://polar.sh/legal/acceptable-use-policy","source_effective_date":"2026-03-25","last_checked":"2026-08-16","quote":"Human services;","tags":["human_services","consulting"]},{"platform":"polar","rule_id":"polar-3","verdict":"prohibited","category":"donations-sponsorship","summary":"Donations, crowdfunding, community access, advertising, and sponsorship are prohibited on Polar.","source_url":"https://polar.sh/legal/acceptable-use-policy","source_effective_date":"2026-03-25","last_checked":"2026-08-16","quote":"Donations, crowdfunding, community access, advertising, and sponsorship;","tags":["donations","crowdfunding","sponsorship","tip_jar"]},{"platform":"polar","rule_id":"polar-4","verdict":"prohibited","category":"marketplaces","summary":"Selling others' products on Polar as a marketplace is prohibited.","source_url":"https://polar.sh/legal/acceptable-use-policy","source_effective_date":"2026-03-25","last_checked":"2026-08-16","quote":"Marketplaces. Selling others' products or services using Polar against an upfront payment or with an agreed upon revenue share;","tags":["marketplace"]},{"platform":"polar","rule_id":"polar-5","verdict":"prohibited","category":"ip-infringement","summary":"Products that infringe IP or that you do not own or license are prohibited.","source_url":"https://polar.sh/legal/acceptable-use-policy","source_effective_date":"2026-03-25","last_checked":"2026-08-16","quote":"Any product or service that infringes upon, or enables the infringement of, the intellectual property rights of another party or that you do not own or do not have a license to;","tags":["ip_infringement","counterfeit"]},{"platform":"polar","rule_id":"polar-6","verdict":"prohibited","category":"unauthorized-data-access","summary":"Products that enable unauthorized access to another party's data are prohibited.","source_url":"https://polar.sh/legal/acceptable-use-policy","source_effective_date":"2026-03-25","last_checked":"2026-08-16","quote":"Any product or service that enables unauthorized access to data belonging to another party;","tags":["unauthorized_data"]},{"platform":"polar","rule_id":"polar-7","verdict":"prohibited","category":"enable-other-sellers","summary":"Products that let non-Polar sellers sell to customers are prohibited.","source_url":"https://polar.sh/legal/acceptable-use-policy","source_effective_date":"2026-03-25","last_checked":"2026-08-16","quote":"Any product or service that enables non-Polar Sellers to sell products and services to customers;","tags":["enable_sellers"]},{"platform":"polar","rule_id":"polar-8","verdict":"prohibited","category":"unsolicited-marketing","summary":"Advertising, unsolicited marketing, lead generation, bulk SMS, and automated outreach are prohibited.","source_url":"https://polar.sh/legal/acceptable-use-policy","source_effective_date":"2026-03-25","last_checked":"2026-08-16","quote":"Advertising and unsolicited marketing services, including, but not limited to, lead generation, bulk SMS and automated outreach;","tags":["outreach","unsolicited_marketing","lead_gen","bulk_sms","cold_email"]},{"platform":"polar","rule_id":"polar-9","verdict":"prohibited","category":"adult","summary":"Adult content and services, including adult AI content, are prohibited.","source_url":"https://polar.sh/legal/acceptable-use-policy","source_effective_date":"2026-03-25","last_checked":"2026-08-16","quote":"Adult content and services including, but not limited to, OnlyFans-related and similar services, adult AI-generated content and AI relationship services;","tags":["adult","adult_ai"]},{"platform":"polar","rule_id":"polar-10","verdict":"prohibited","category":"minors","summary":"Services used by, intended for, or advertised toward minors are prohibited.","source_url":"https://polar.sh/legal/acceptable-use-policy","source_effective_date":"2026-03-25","last_checked":"2026-08-16","quote":"Services used by, intended for, or advertised towards minors;","tags":["minors"]},{"platform":"polar","rule_id":"polar-11","verdict":"prohibited","category":"gambling","summary":"Gambling, betting, loot boxes, and mystery boxes are prohibited.","source_url":"https://polar.sh/legal/acceptable-use-policy","source_effective_date":"2026-03-25","last_checked":"2026-08-16","quote":"Gambling and betting services, including, but not limited to loot boxes and mystery boxes;","tags":["gambling"]},{"platform":"polar","rule_id":"polar-12","verdict":"prohibited","category":"age-restricted","summary":"Illegal or age-restricted products such as drugs, alcohol, tobacco, and vaping are prohibited.","source_url":"https://polar.sh/legal/acceptable-use-policy","source_effective_date":"2026-03-25","last_checked":"2026-08-16","quote":"Illegal or age-restricted products, including, but not limited to, drugs, alcohol, tobacco and vaping;","tags":["drugs","alcohol","tobacco"]},{"platform":"polar","rule_id":"polar-13","verdict":"prohibited","category":"resell-customer-data","summary":"Reselling or distributing customer data is prohibited.","source_url":"https://polar.sh/legal/acceptable-use-policy","source_effective_date":"2026-03-25","last_checked":"2026-08-16","quote":"Reselling or distributing customer data;","tags":["data_resale"]},{"platform":"polar","rule_id":"polar-14","verdict":"prohibited","category":"low-quality-counterfeit","summary":"Low-quality or counterfeit products or services are prohibited.","source_url":"https://polar.sh/legal/acceptable-use-policy","source_effective_date":"2026-03-25","last_checked":"2026-08-16","quote":"Low-quality or counterfeit products or services;","tags":["counterfeit","low_quality"]},{"platform":"polar","rule_id":"polar-15","verdict":"prohibited","category":"fake-social-proof","summary":"Fake testimonials, reviews, and review-inflation platforms are prohibited.","source_url":"https://polar.sh/legal/acceptable-use-policy","source_effective_date":"2026-03-25","last_checked":"2026-08-16","quote":"Fake testimonials, reviews, social proof, and review inflation platforms;","tags":["fake_reviews"]},{"platform":"polar","rule_id":"polar-16","verdict":"prohibited","category":"regulated","summary":"Regulated services or products are prohibited.","source_url":"https://polar.sh/legal/acceptable-use-policy","source_effective_date":"2026-03-25","last_checked":"2026-08-16","quote":"Regulated services or products;","tags":["regulated"]},{"platform":"polar","rule_id":"polar-17","verdict":"prohibited","category":"unauthorized-license-resale","summary":"Reselling software licenses without authorization is prohibited.","source_url":"https://polar.sh/legal/acceptable-use-policy","source_effective_date":"2026-03-25","last_checked":"2026-08-16","quote":"Reselling software licenses without authorization;","tags":["license_resale"]},{"platform":"polar","rule_id":"polar-18","verdict":"prohibited","category":"circumvention","summary":"Services that circumvent rules, paywalls, or terms of other services are prohibited.","source_url":"https://polar.sh/legal/acceptable-use-policy","source_effective_date":"2026-03-25","last_checked":"2026-08-16","quote":"Services to circumvent the rules, paywalls or terms of other services;","tags":["circumvention","paywall"]},{"platform":"polar","rule_id":"polar-19","verdict":"prohibited","category":"financial-crypto","summary":"Trading, financial services, investment advice, NFTs, and crypto assets are prohibited.","source_url":"https://polar.sh/legal/acceptable-use-policy","source_effective_date":"2026-03-25","last_checked":"2026-08-16","quote":"Trading and Financial Services, including (a) services facilitating transactions, investments, or balances for customers; (b) financial trading, trading bots, brokerage, or investment advisory services (including insights platforms); (c) financial advice content or services related to tax guidance, wealth management, trading signals, or investment strategies; and (d) NFTs and Crypto assets;","tags":["financial","crypto","nft","trading"]},{"platform":"polar","rule_id":"polar-20","verdict":"prohibited","category":"get-rich","summary":"Get-rich schemes or content are prohibited.","source_url":"https://polar.sh/legal/acceptable-use-policy","source_effective_date":"2026-03-25","last_checked":"2026-08-16","quote":"“Get Rich” schemes or content;","tags":["get_rich"]},{"platform":"polar","rule_id":"polar-21","verdict":"prohibited","category":"government","summary":"Government services are prohibited.","source_url":"https://polar.sh/legal/acceptable-use-policy","source_effective_date":"2026-03-25","last_checked":"2026-08-16","quote":"Government Services;","tags":["government"]},{"platform":"polar","rule_id":"polar-22","verdict":"prohibited","category":"cheating","summary":"Cheating tools including macros, cheat codes, and hacks are prohibited.","source_url":"https://polar.sh/legal/acceptable-use-policy","source_effective_date":"2026-03-25","last_checked":"2026-08-16","quote":"Cheating, including but not limited to macros, cheat codes and hacks;","tags":["cheating"]},{"platform":"polar","rule_id":"polar-23","verdict":"prohibited","category":"job-boards","summary":"Job boards are prohibited.","source_url":"https://polar.sh/legal/acceptable-use-policy","source_effective_date":"2026-03-25","last_checked":"2026-08-16","quote":"Job boards;","tags":["job_board"]},{"platform":"polar","rule_id":"polar-24","verdict":"prohibited","category":"travel","summary":"Travel services are prohibited.","source_url":"https://polar.sh/legal/acceptable-use-policy","source_effective_date":"2026-03-25","last_checked":"2026-08-16","quote":"Travel Services;","tags":["travel"]},{"platform":"polar","rule_id":"polar-25","verdict":"prohibited","category":"iptv","summary":"IPTV services and platforms that enable IPTV delivery are prohibited.","source_url":"https://polar.sh/legal/acceptable-use-policy","source_effective_date":"2026-03-25","last_checked":"2026-08-16","quote":"IPTV services, including software or platforms that enable IPTV service delivery;","tags":["iptv"]},{"platform":"polar","rule_id":"polar-26","verdict":"prohibited","category":"malware","summary":"Viruses and spyware are prohibited.","source_url":"https://polar.sh/legal/acceptable-use-policy","source_effective_date":"2026-03-25","last_checked":"2026-08-16","quote":"Viruses and Spyware;","tags":["malware","spyware"]},{"platform":"polar","rule_id":"polar-27","verdict":"prohibited","category":"cloaking","summary":"API and IP cloaking services are prohibited.","source_url":"https://polar.sh/legal/acceptable-use-policy","source_effective_date":"2026-03-25","last_checked":"2026-08-16","quote":"API and IP cloaking services;","tags":["cloaking"]},{"platform":"polar","rule_id":"polar-28","verdict":"prohibited","category":"trademark-removal","summary":"Third-party trademark removal services are prohibited.","source_url":"https://polar.sh/legal/acceptable-use-policy","source_effective_date":"2026-03-25","last_checked":"2026-08-16","quote":"Third-party trademark removal services;","tags":["trademark_removal"]},{"platform":"polar","rule_id":"polar-29","verdict":"prohibited","category":"telecom-esim","summary":"Telecommunication and eSIM services are prohibited.","source_url":"https://polar.sh/legal/acceptable-use-policy","source_effective_date":"2026-03-25","last_checked":"2026-08-16","quote":"Telecommunication and eSIM Services;","tags":["telecom","esim"]},{"platform":"polar","rule_id":"polar-30","verdict":"prohibited","category":"content-downloaders","summary":"Third-party content downloaders (YouTube, Instagram, Snapchat, etc.) are prohibited.","source_url":"https://polar.sh/legal/acceptable-use-policy","source_effective_date":"2026-03-25","last_checked":"2026-08-16","quote":"Third-party content downloaders, including, but not limited to YouTube, Instagram and Snapchat;","tags":["downloader"]},{"platform":"polar","rule_id":"polar-31","verdict":"prohibited","category":"pseudoscience","summary":"Pseudo-science digital services such as horoscopes and fortune-telling are prohibited.","source_url":"https://polar.sh/legal/acceptable-use-policy","source_effective_date":"2026-03-25","last_checked":"2026-08-16","quote":"Digital services associated with pseudo-science including, but not limited to, clairvoyance, horoscopes, fortune-telling;","tags":["pseudoscience","astrology"]},{"platform":"polar","rule_id":"polar-32","verdict":"prohibited","category":"medical-advice","summary":"Medical and health advice is prohibited.","source_url":"https://polar.sh/legal/acceptable-use-policy","source_effective_date":"2026-03-25","last_checked":"2026-08-16","quote":"Medical and Health advice;","tags":["medical"]},{"platform":"polar","rule_id":"polar-33","verdict":"prohibited","category":"infringing-generation","summary":"Content generation that infringes IP, enables face swaps or deepfakes, or produces adult content is prohibited.","source_url":"https://polar.sh/legal/acceptable-use-policy","source_effective_date":"2026-03-25","last_checked":"2026-08-16","quote":"Content generation that infringes on trademarks or copyrights, enables face swaps or deep fakes, or produces adult content;","tags":["deepfake","face_swap","adult_ai"]},{"platform":"polar","rule_id":"polar-34","verdict":"prohibited","category":"tech-support","summary":"Technical support and repair services are prohibited.","source_url":"https://polar.sh/legal/acceptable-use-policy","source_effective_date":"2026-03-25","last_checked":"2026-08-16","quote":"Technical support and repair services;","tags":["tech_support"]},{"platform":"polar","rule_id":"polar-35","verdict":"prohibited","category":"test-prep-exam-resale","summary":"Standardized test-prep platforms that resell real or past exam questions are prohibited.","source_url":"https://polar.sh/legal/acceptable-use-policy","source_effective_date":"2026-03-25","last_checked":"2026-08-16","quote":"Standardized test prep platforms reselling real or past exam questions (e.g. IELTS, SAT, GMAT). Due to the high risk of copyright infringement and illegal distribution of proprietary exam content, we disallow this category entirely.","tags":["exam_resale"]},{"platform":"polar","rule_id":"polar-36","verdict":"prohibited","category":"osint","summary":"OSINT platforms that aggregate, search, or expose personal data are prohibited.","source_url":"https://polar.sh/legal/acceptable-use-policy","source_effective_date":"2026-03-25","last_checked":"2026-08-16","quote":"Open Source Intelligence (OSINT) platforms: Services that aggregate, search, or expose personal data about individuals using public or leaked sources.","tags":["osint","people_search","personal_data"]},{"platform":"polar","rule_id":"polar-r-directories","verdict":"restricted_review","category":"directories","summary":"Directories and boards require closer Polar review and may not be accepted.","source_url":"https://polar.sh/legal/acceptable-use-policy","source_effective_date":"2026-03-25","last_checked":"2026-08-16","quote":"Directories and boards;","tags":["directory"]},{"platform":"polar","rule_id":"polar-r-marketing-services","verdict":"restricted_review","category":"marketing-services","summary":"Marketing services require closer Polar review and may not be accepted.","source_url":"https://polar.sh/legal/acceptable-use-policy","source_effective_date":"2026-03-25","last_checked":"2026-08-16","quote":"Marketing services;","tags":["marketing_generic"]},{"platform":"polar","rule_id":"polar-r-preorders","verdict":"restricted_review","category":"preorders","summary":"Pre-orders and paid waitlists require closer Polar review.","source_url":"https://polar.sh/legal/acceptable-use-policy","source_effective_date":"2026-03-25","last_checked":"2026-08-16","quote":"Pre-orders and paid waitlists;","tags":["preorder"]},{"platform":"polar","rule_id":"polar-r-vpn","verdict":"restricted_review","category":"vpn-vps","summary":"VPN, VPS, and VDS services require closer Polar review.","source_url":"https://polar.sh/legal/acceptable-use-policy","source_effective_date":"2026-03-25","last_checked":"2026-08-16","quote":"VPN, VPS & VDS services;","tags":["vpn","vps"]},{"platform":"polar","rule_id":"polar-r-tickets","verdict":"restricted_review","category":"ticket-sales","summary":"Ticket sales require closer Polar review.","source_url":"https://polar.sh/legal/acceptable-use-policy","source_effective_date":"2026-03-25","last_checked":"2026-08-16","quote":"Ticket sales;","tags":["tickets"]},{"platform":"polar","rule_id":"polar-r-ebooks","verdict":"restricted_review","category":"ebooks","summary":"eBooks require closer Polar review even though digital products are otherwise acceptable.","source_url":"https://polar.sh/legal/acceptable-use-policy","source_effective_date":"2026-03-25","last_checked":"2026-08-16","quote":"eBooks;","tags":["ebook"]},{"platform":"polar","rule_id":"polar-r-ai","verdict":"restricted_review","category":"ai-content-generation","summary":"AI content generation tools (text, image, video, voice) require closer Polar review.","source_url":"https://polar.sh/legal/acceptable-use-policy","source_effective_date":"2026-03-25","last_checked":"2026-08-16","quote":"AI Content Generation tools (text, image, video, voice);","tags":["ai_content"]},{"platform":"polar","rule_id":"polar-r-outreach-tools","verdict":"restricted_review","category":"marketing-outreach-tools","summary":"Marketing and outreach tools require closer Polar review (unsolicited outreach is separately prohibited).","source_url":"https://polar.sh/legal/acceptable-use-policy","source_effective_date":"2026-03-25","last_checked":"2026-08-16","quote":"Marketing & outreach tools;","tags":["marketing_tools"]},{"platform":"polar","rule_id":"polar-r-resume","verdict":"restricted_review","category":"resume-hiring-exam","summary":"Resume, hiring, or exam tools require closer Polar review.","source_url":"https://polar.sh/legal/acceptable-use-policy","source_effective_date":"2026-03-25","last_checked":"2026-08-16","quote":"Resume, hiring, or exam tools;","tags":["resume","hiring","exam_tools"]},{"platform":"polar","rule_id":"polar-r-spiritual","verdict":"restricted_review","category":"spiritual-astrology","summary":"Spiritual and astrology services require closer Polar review.","source_url":"https://polar.sh/legal/acceptable-use-policy","source_effective_date":"2026-03-25","last_checked":"2026-08-16","quote":"Spiritual & Astrology services;","tags":["spiritual","astrology"]},{"platform":"polar","rule_id":"polar-r-audio-gen","verdict":"restricted_review","category":"audio-music-chatbot","summary":"Audio, music, and chatbot generators require closer review; voice cloning, NSFW, IP infringement, and fake claims are out.","source_url":"https://polar.sh/legal/acceptable-use-policy","source_effective_date":"2026-03-25","last_checked":"2026-08-16","quote":"Audio / music / chatbot generators (no voice cloning, NSFW, IP infringements or fake claims).","tags":["audio_gen","chatbot_gen"]},{"platform":"polar","rule_id":"polar-review-payout","verdict":"restricted_review","category":"account-review","summary":"Polar reviews every account against the AUP before the first payout (up to 14 days).","source_url":"https://polar.sh/docs/merchant-of-record/account-reviews","source_effective_date":"2026-08-16","last_checked":"2026-08-16","quote":"As a Merchant of Record (MoR), Polar resells your digital goods and services on your behalf. To do this responsibly, we verify that every business using Polar complies with our Acceptable Use Policy, and we continuously monitor transactions to prevent fraud, abuse, and high-risk activity.","tags":["account_review"]},{"platform":"lemon","rule_id":"lemon-accept-digital","verdict":"allowed","category":"digital-goods","summary":"Lemon Squeezy generally allows digital goods fulfilled through its website.","source_url":"https://docs.lemonsqueezy.com/help/getting-started/prohibited-products","source_effective_date":"2026-08-16","last_checked":"2026-08-16","quote":"As a general rule, we allow selling of digital goods that can be fulfilled through Lemon Squeezy’s website.","tags":["digital_product","software_saas"]},{"platform":"lemon","rule_id":"lemon-accept-software","verdict":"allowed","category":"software-saas","summary":"Software and SaaS are listed as acceptable Lemon Squeezy products.","source_url":"https://docs.lemonsqueezy.com/help/getting-started/prohibited-products","source_effective_date":"2026-08-16","last_checked":"2026-08-16","quote":"Software & SaaS","tags":["software_saas","cli","library"]},{"platform":"lemon","rule_id":"lemon-accept-ebooks","verdict":"allowed","category":"ebooks-pdfs","summary":"eBooks and PDFs are listed as acceptable Lemon Squeezy products.","source_url":"https://docs.lemonsqueezy.com/help/getting-started/prohibited-products","source_effective_date":"2026-08-16","last_checked":"2026-08-16","quote":"eBooks","tags":["ebook","digital_product"]},{"platform":"lemon","rule_id":"lemon-adult","verdict":"prohibited","category":"adult","summary":"Sexually-oriented or pornographic content, including NSFW chatbots, is prohibited.","source_url":"https://docs.lemonsqueezy.com/help/getting-started/prohibited-products","source_effective_date":"2026-08-16","last_checked":"2026-08-16","quote":"Sexually-oriented or pornographic content of any kind, including NSFW chatbots","tags":["adult","adult_ai"]},{"platform":"lemon","rule_id":"lemon-services","verdict":"prohibited","category":"human-services","summary":"Human services of any kind, including marketing and consulting, are prohibited.","source_url":"https://docs.lemonsqueezy.com/help/getting-started/prohibited-products","source_effective_date":"2026-08-16","last_checked":"2026-08-16","quote":"Services of any kind (including marketing, design, web development, consulting or other related services)","tags":["human_services","consulting","outreach","lead_gen","unsolicited_marketing"]},{"platform":"lemon","rule_id":"lemon-iptv","verdict":"prohibited","category":"iptv","summary":"IPTV services are prohibited.","source_url":"https://docs.lemonsqueezy.com/help/getting-started/prohibited-products","source_effective_date":"2026-08-16","last_checked":"2026-08-16","quote":"IPTV services","tags":["iptv"]},{"platform":"lemon","rule_id":"lemon-physical","verdict":"prohibited","category":"physical-goods","summary":"Physical goods of any kind are prohibited.","source_url":"https://docs.lemonsqueezy.com/help/getting-started/prohibited-products","source_effective_date":"2026-08-16","last_checked":"2026-08-16","quote":"Physical goods of any kind","tags":["physical","dropshipping"]},{"platform":"lemon","rule_id":"lemon-spyware","verdict":"prohibited","category":"spyware","summary":"Spyware or parental-control apps are prohibited.","source_url":"https://docs.lemonsqueezy.com/help/getting-started/prohibited-products","source_effective_date":"2026-08-16","last_checked":"2026-08-16","quote":"Spyware or parental control apps","tags":["spyware","malware"]},{"platform":"lemon","rule_id":"lemon-donations","verdict":"prohibited","category":"donations","summary":"Donations or charity giving with no product, or a price above product value, are prohibited.","source_url":"https://docs.lemonsqueezy.com/help/getting-started/prohibited-products","source_effective_date":"2026-08-16","last_checked":"2026-08-16","quote":"Donations or charity giving where no product exists or where the price is greater than the product value","tags":["donations","tip_jar","sponsorship","crowdfunding"]},{"platform":"lemon","rule_id":"lemon-no-license","verdict":"prohibited","category":"ip-rights","summary":"Products or content you do not hold a proper license or IP rights for are prohibited.","source_url":"https://docs.lemonsqueezy.com/help/getting-started/prohibited-products","source_effective_date":"2026-08-16","last_checked":"2026-08-16","quote":"Products or content for which you do not hold a proper license or intellectual property rights","tags":["ip_infringement"]},{"platform":"lemon","rule_id":"lemon-job-boards","verdict":"prohibited","category":"job-boards","summary":"Job boards are prohibited.","source_url":"https://docs.lemonsqueezy.com/help/getting-started/prohibited-products","source_effective_date":"2026-08-16","last_checked":"2026-08-16","quote":"Job boards","tags":["job_board"]},{"platform":"lemon","rule_id":"lemon-advertising","verdict":"prohibited","category":"advertising","summary":"Advertising in newsletters, websites, or social posts is prohibited.","source_url":"https://docs.lemonsqueezy.com/help/getting-started/prohibited-products","source_effective_date":"2026-08-16","last_checked":"2026-08-16","quote":"Advertising in newsletters, on websites, or in social media posts","tags":["advertising"]},{"platform":"lemon","rule_id":"lemon-marketplace","verdict":"prohibited","category":"marketplaces","summary":"Using a Lemon store as a marketplace to sell others' products is prohibited.","source_url":"https://docs.lemonsqueezy.com/help/getting-started/prohibited-products","source_effective_date":"2026-08-16","last_checked":"2026-08-16","quote":"Marketplaces - where you use your Lemon Squeezy store to “partner” to sell others’ products","tags":["marketplace"]},{"platform":"lemon","rule_id":"lemon-dating","verdict":"prohibited","category":"dating","summary":"Dating sites are prohibited.","source_url":"https://docs.lemonsqueezy.com/help/getting-started/prohibited-products","source_effective_date":"2026-08-16","last_checked":"2026-08-16","quote":"Dating sites","tags":["dating"]},{"platform":"lemon","rule_id":"lemon-plr","verdict":"prohibited","category":"plr-mrr","summary":"PLR and MRR products (license to sell without original IP) are prohibited.","source_url":"https://docs.lemonsqueezy.com/help/getting-started/prohibited-products","source_effective_date":"2026-08-16","last_checked":"2026-08-16","quote":"Private Label Rights (PLR) products or Master Resell Products (MRR) products - this includes any product which you’ve obtained a license to sell but do not hold the original IP rights","tags":["plr","license_resale"]},{"platform":"lemon","rule_id":"lemon-counterfeit","verdict":"prohibited","category":"counterfeit","summary":"Counterfeit goods are prohibited.","source_url":"https://docs.lemonsqueezy.com/help/getting-started/prohibited-products","source_effective_date":"2026-08-16","last_checked":"2026-08-16","quote":"Counterfeit goods","tags":["counterfeit"]},{"platform":"lemon","rule_id":"lemon-processor-restricted","verdict":"prohibited","category":"processor-restricted","summary":"Any products restricted by Lemon's payment processing partners are prohibited.","source_url":"https://docs.lemonsqueezy.com/help/getting-started/prohibited-products","source_effective_date":"2026-08-16","last_checked":"2026-08-16","quote":"Any products restricted by our payment processing partners","tags":["processor_restricted"]},{"platform":"lemon","rule_id":"lemon-age-restricted","verdict":"prohibited","category":"age-restricted","summary":"Illegal or age-restricted products such as drugs, alcohol, tobacco, and vaping are prohibited.","source_url":"https://docs.lemonsqueezy.com/help/getting-started/prohibited-products","source_effective_date":"2026-08-16","last_checked":"2026-08-16","quote":"Illegal or age restricted products such as: drugs and paraphernalia, alcohol, tobacco, vaping products","tags":["drugs","alcohol","tobacco"]},{"platform":"lemon","rule_id":"lemon-regulated-products","verdict":"prohibited","category":"regulated-products","summary":"Regulated products including CBD, gambling, weapons, and get-rich-quick schemes are prohibited.","source_url":"https://docs.lemonsqueezy.com/help/getting-started/prohibited-products","source_effective_date":"2026-08-16","last_checked":"2026-08-16","quote":"Regulated products such as: CBD, gambling, weapons, ammunition, pay to play auctions, sweepstakes, lotteries, business-in-a-box, work-from-home, get-rich-quick schemes, etc.","tags":["gambling","weapons","get_rich","cbd"]},{"platform":"lemon","rule_id":"lemon-regulated-services","verdict":"prohibited","category":"regulated-services","summary":"Regulated services including lending, telemarketing, legal, and banking are prohibited.","source_url":"https://docs.lemonsqueezy.com/help/getting-started/prohibited-products","source_effective_date":"2026-08-16","last_checked":"2026-08-16","quote":"Regulated services such as: real estate, mortgage, lending, telemarketing, cellular/communication, door-to-door sales, bankruptcy, legal, merchant, debt-relief, collections, banking/financing, currency exchange, warranties, etc.","tags":["financial","telemarketing","legal_services"]},{"platform":"lemon","rule_id":"lemon-timeshares","verdict":"prohibited","category":"timeshares","summary":"Timeshares are prohibited.","source_url":"https://docs.lemonsqueezy.com/help/getting-started/prohibited-products","source_effective_date":"2026-08-16","last_checked":"2026-08-16","quote":"Timeshares","tags":["timeshare"]},{"platform":"lemon","rule_id":"lemon-pharma","verdict":"prohibited","category":"pharma","summary":"Pharmacies, pharmaceuticals, and nutraceuticals are prohibited.","source_url":"https://docs.lemonsqueezy.com/help/getting-started/prohibited-products","source_effective_date":"2026-08-16","last_checked":"2026-08-16","quote":"Pharmacies, pharmaceuticals and nutraceuticals","tags":["pharma","medical"]},{"platform":"lemon","rule_id":"lemon-essay-mills","verdict":"prohibited","category":"essay-mills","summary":"Homework and essay mills are prohibited.","source_url":"https://docs.lemonsqueezy.com/help/getting-started/prohibited-products","source_effective_date":"2026-08-16","last_checked":"2026-08-16","quote":"Homework/Essay mills","tags":["essay_mill"]},{"platform":"lemon","rule_id":"lemon-mlm","verdict":"prohibited","category":"mlm","summary":"Multi-level marketing, pyramid, or IBO schemes are prohibited.","source_url":"https://docs.lemonsqueezy.com/help/getting-started/prohibited-products","source_effective_date":"2026-08-16","last_checked":"2026-08-16","quote":"Multi-level marketing, pyramid, or IBO schemes","tags":["mlm","get_rich"]},{"platform":"lemon","rule_id":"lemon-crypto","verdict":"prohibited","category":"nft-crypto","summary":"NFT and crypto-related products are prohibited.","source_url":"https://docs.lemonsqueezy.com/help/getting-started/prohibited-products","source_effective_date":"2026-08-16","last_checked":"2026-08-16","quote":"NFT & Crypto related products. The entire crypto market is extremely volatile and Lemon Squeezy is not designed to support these types of products","tags":["crypto","nft"]},{"platform":"stripe","rule_id":"stripe-scope","verdict":"allowed","category":"unlisted-ordinary-business","summary":"Stripe's list covers specific prohibited and restricted categories; ordinary software/SaaS is not listed.","source_url":"https://stripe.com/legal/restricted-businesses","source_effective_date":"2026-05-13","last_checked":"2026-08-16","quote":"This page provides information on the types of businesses, products, and industries that can’t use Stripe’s services.","tags":["software_saas","digital_product","cli","chrome_extension"]},{"platform":"stripe","rule_id":"stripe-illegal","verdict":"prohibited","category":"illegal","summary":"Illegal products and services cannot use Stripe.","source_url":"https://stripe.com/legal/restricted-businesses","source_effective_date":"2026-05-13","last_checked":"2026-08-16","quote":"You must not use Stripe's services for any illegal activities or for the businesses or product types listed below.","tags":["illegal"]},{"platform":"stripe","rule_id":"stripe-adult","verdict":"prohibited","category":"adult","summary":"Adult content and services, including qualifying AI-generated adult content, are prohibited.","source_url":"https://stripe.com/legal/restricted-businesses","source_effective_date":"2026-05-13","last_checked":"2026-08-16","quote":"Pornography and other mature audience content (including literature, imagery, and other media) designed for the purpose of sexual gratification","tags":["adult","adult_ai"]},{"platform":"stripe","rule_id":"stripe-adult-ai","verdict":"prohibited","category":"adult-ai","summary":"AI-generated content that meets Stripe's adult-content criteria is prohibited.","source_url":"https://stripe.com/legal/restricted-businesses","source_effective_date":"2026-05-13","last_checked":"2026-08-16","quote":"Any artificial-intelligence generated content that meets the above criteria","tags":["adult_ai"]},{"platform":"stripe","rule_id":"stripe-gambling","verdict":"prohibited","category":"gambling","summary":"Games of chance with a monetary or material prize are prohibited.","source_url":"https://stripe.com/legal/restricted-businesses","source_effective_date":"2026-05-13","last_checked":"2026-08-16","quote":"Games of chance including gambling, internet gambling, casino games, sweepstakes and contests, and fantasy sports leagues with a monetary or material prize","tags":["gambling"]},{"platform":"stripe","rule_id":"stripe-ip","verdict":"prohibited","category":"ip-infringement","summary":"Sale or distribution of licensed materials without authorization is prohibited.","source_url":"https://stripe.com/legal/restricted-businesses","source_effective_date":"2026-05-13","last_checked":"2026-08-16","quote":"Sales or distribution of music, movies, software, or any other licensed materials without appropriate authorization","tags":["ip_infringement","license_resale"]},{"platform":"stripe","rule_id":"stripe-get-rich","verdict":"prohibited","category":"get-rich","summary":"Get-rich-quick schemes are prohibited as unfair or deceptive practices.","source_url":"https://stripe.com/legal/restricted-businesses","source_effective_date":"2026-05-13","last_checked":"2026-08-16","quote":"\"Get rich quick\" schemes, including investment opportunities or other services that promise high rewards to mislead consumers; schemes that claim to offer high rewards for very little effort or up-front work; and sites that promise fast and easy money","tags":["get_rich"]},{"platform":"stripe","rule_id":"stripe-telemarketing","verdict":"prohibited","category":"telemarketing","summary":"Telemarketing is listed among Stripe's prohibited unfair, deceptive, or abusive practices.","source_url":"https://stripe.com/legal/restricted-businesses","source_effective_date":"2026-05-13","last_checked":"2026-08-16","quote":"Telemarketing","tags":["telemarketing","cold_email","unsolicited_marketing"]},{"platform":"stripe","rule_id":"stripe-fake-testimonials","verdict":"prohibited","category":"fake-testimonials","summary":"Businesses that use fake testimonials or deceptive claims are prohibited.","source_url":"https://stripe.com/legal/restricted-businesses","source_effective_date":"2026-05-13","last_checked":"2026-08-16","quote":"Businesses that make outrageous claims, use deceptive testimonials, use high-pressure upselling, or use fake testimonials (with or without a written contract)","tags":["fake_reviews"]},{"platform":"stripe","rule_id":"stripe-crypto-mining","verdict":"prohibited","category":"crypto-mining","summary":"Cryptocurrency mining, staking, ICOs, and secondary NFT sales are prohibited.","source_url":"https://stripe.com/legal/restricted-businesses","source_effective_date":"2026-05-13","last_checked":"2026-08-16","quote":"Cryptocurrency mining and staking","tags":["crypto_mining"]},{"platform":"stripe","rule_id":"stripe-p2p","verdict":"prohibited","category":"p2p-money","summary":"Peer-to-peer money transmission is a prohibited financial product.","source_url":"https://stripe.com/legal/restricted-businesses","source_effective_date":"2026-05-13","last_checked":"2026-08-16","quote":"Peer-to-peer money transmission","tags":["p2p_money"]},{"platform":"stripe","rule_id":"stripe-weapons-illegal","verdict":"prohibited","category":"illegal-weapons","summary":"Illegal weapons and accessories are prohibited.","source_url":"https://stripe.com/legal/restricted-businesses","source_effective_date":"2026-05-13","last_checked":"2026-08-16","quote":"Illegal weapons and accessories","tags":["weapons"]},{"platform":"stripe","rule_id":"stripe-traffic","verdict":"prohibited","category":"traffic-sales","summary":"Sales of online traffic or engagement are prohibited.","source_url":"https://stripe.com/legal/restricted-businesses","source_effective_date":"2026-05-13","last_checked":"2026-08-16","quote":"Sales of online traffic or engagement","tags":["traffic_sales","lead_gen"]},{"platform":"stripe","rule_id":"stripe-tech-support","verdict":"prohibited","category":"remote-tech-support","summary":"Suspicious remote technical support is prohibited.","source_url":"https://stripe.com/legal/restricted-businesses","source_effective_date":"2026-05-13","last_checked":"2026-08-16","quote":"Suspicious remote technical support","tags":["tech_support"]},{"platform":"stripe","rule_id":"stripe-mlm","verdict":"prohibited","category":"mlm","summary":"Multilevel marketing with commission or recruitment-based sales is prohibited.","source_url":"https://stripe.com/legal/restricted-businesses","source_effective_date":"2026-05-13","last_checked":"2026-08-16","quote":"Multilevel marketing services offering commission or recruitment-based sales","tags":["mlm"]},{"platform":"stripe","rule_id":"stripe-r-crowdfunding","verdict":"restricted_review","category":"crowdfunding","summary":"Crowdfunding and fundraising require additional Stripe due diligence.","source_url":"https://stripe.com/legal/restricted-businesses","source_effective_date":"2026-05-13","last_checked":"2026-08-16","quote":"Fundraising conducted by nonprofits, charities, political organizations, and businesses offering a reward in return for donation","tags":["donations","crowdfunding","tip_jar"]},{"platform":"stripe","rule_id":"stripe-r-content-platforms","verdict":"restricted_review","category":"content-platforms","summary":"Platforms that host third-party content and take creator tips or exclusive-content sales need review.","source_url":"https://stripe.com/legal/restricted-businesses","source_effective_date":"2026-05-13","last_checked":"2026-08-16","quote":"Platforms that host or distribute third-party content and enable content creators to:","tags":["marketplace","enable_sellers"]},{"platform":"stripe","rule_id":"stripe-r-crypto","verdict":"restricted_review","category":"crypto-exchanges","summary":"Cryptocurrency exchanges and wallets require additional due diligence and have limited availability.","source_url":"https://stripe.com/legal/restricted-businesses","source_effective_date":"2026-05-13","last_checked":"2026-08-16","quote":"Cryptocurrency (for example, Bitcoin, Ripple, Ethereum, Dogecoin, Cardano, etc.) exchanges and wallets.","tags":["crypto"]},{"platform":"stripe","rule_id":"stripe-r-financial","verdict":"restricted_review","category":"financial-services","summary":"Investment, brokerage, lending, and other financial services require Stripe sales review.","source_url":"https://stripe.com/legal/restricted-businesses","source_effective_date":"2026-05-13","last_checked":"2026-08-16","quote":"Investment and brokerage services, including real estate--based investments","tags":["financial","trading"]},{"platform":"stripe","rule_id":"stripe-r-nft","verdict":"restricted_review","category":"first-party-nfts","summary":"First-party NFT minting and sales, including marketplaces and SaaS, are restricted.","source_url":"https://stripe.com/legal/restricted-businesses","source_effective_date":"2026-05-13","last_checked":"2026-08-16","quote":"First-party non-fungible tokens (NFTs) minting and sales, including marketplaces and SaaS platforms","tags":["nft"]},{"platform":"stripe","rule_id":"stripe-r-due-diligence","verdict":"restricted_review","category":"restricted-general","summary":"Restricted businesses require additional Stripe due diligence and may be refused.","source_url":"https://stripe.com/legal/restricted-businesses","source_effective_date":"2026-05-13","last_checked":"2026-08-16","quote":"Businesses in these categories require additional due diligence by Stripe in order to confirm our ability to support them.","tags":["account_review"]},{"platform":"stripe","rule_id":"stripe-r-dating","verdict":"restricted_review","category":"dating","summary":"Online dating and matchmaking services are restricted (prohibited in some countries).","source_url":"https://stripe.com/legal/restricted-businesses","source_effective_date":"2026-05-13","last_checked":"2026-08-16","quote":"Online dating and matchmaking services (Note: Specific prohibitions apply in India, United Arab Emirates, and Thailand; see Jurisdiction-specific prohibited businesses for more information.)","tags":["dating"]},{"platform":"stripe","rule_id":"stripe-r-pharma","verdict":"restricted_review","category":"pharma-telemedicine","summary":"Online pharmacies, prescription products, and telemedicine require additional review.","source_url":"https://stripe.com/legal/restricted-businesses","source_effective_date":"2026-05-13","last_checked":"2026-08-16","quote":"Online pharmacies, including SaaS platforms","tags":["pharma","medical"]},{"platform":"stripe","rule_id":"stripe-marijuana","verdict":"prohibited","category":"marijuana","summary":"Cannabis products and related businesses are prohibited on Stripe.","source_url":"https://stripe.com/legal/restricted-businesses","source_effective_date":"2026-05-13","last_checked":"2026-08-16","quote":"Cannabis products","tags":["marijuana","cannabis"]},{"platform":"stripe","rule_id":"stripe-r-cbd","verdict":"restricted_review","category":"cbd","summary":"CBD products with only negligible THC (per local limits) require additional Stripe due diligence.","source_url":"https://stripe.com/legal/restricted-businesses","source_effective_date":"2026-05-13","last_checked":"2026-08-16","quote":"CBD products containing only negligible amounts of THC, per local limits","tags":["cbd"]},{"platform":"cws","rule_id":"cws-add-value","verdict":"allowed","category":"useful-extension","summary":"Extensions that add value and have a narrow single purpose are the intended CWS catalog.","source_url":"https://developer.chrome.com/docs/webstore/program-policies/policies","source_effective_date":"2026-08-16","last_checked":"2026-08-16","quote":"Extensions should add value to the Chrome Web Store. If your extension is not particularly useful or unique, it doesn't belong on the Chrome Web Store.","tags":["chrome_extension","software_saas"]},{"platform":"cws","rule_id":"cws-single-purpose","verdict":"allowed","category":"single-purpose","summary":"An extension must have a single purpose that is narrow and easy to understand.","source_url":"https://developer.chrome.com/docs/webstore/program-policies/policies","source_effective_date":"2026-08-16","last_checked":"2026-08-16","quote":"An extension must have a single purpose that is narrow and easy to understand.","tags":["chrome_extension"]},{"platform":"cws","rule_id":"cws-malware","verdict":"prohibited","category":"malware","summary":"Viruses, malware, and other destructive products are prohibited.","source_url":"https://developer.chrome.com/docs/webstore/program-policies/policies","source_effective_date":"2026-08-16","last_checked":"2026-08-16","quote":"Don't transmit viruses, worms, defects, Trojan horses, malware, or any other products of a destructive nature.","tags":["malware","spyware"]},{"platform":"cws","rule_id":"cws-spyware","verdict":"prohibited","category":"spyware-phishing","summary":"Spyware, malicious scripts, and phishing scams are prohibited.","source_url":"https://developer.chrome.com/docs/webstore/program-policies/policies","source_effective_date":"2026-08-16","last_checked":"2026-08-16","quote":"Spyware, malicious scripts, and phishing scams are also prohibited in the Chrome Web Store.","tags":["spyware","phishing"]},{"platform":"cws","rule_id":"cws-circumvention","verdict":"prohibited","category":"circumvention","summary":"Facilitating unauthorized access such as circumventing paywalls is prohibited.","source_url":"https://developer.chrome.com/docs/webstore/program-policies/policies","source_effective_date":"2026-08-16","last_checked":"2026-08-16","quote":"Do not facilitate unauthorized access to content on websites, such as circumventing paywalls or login restrictions.","tags":["circumvention","paywall"]},{"platform":"cws","rule_id":"cws-copyright-stream","verdict":"prohibited","category":"unauthorized-media","summary":"Unauthorized download or streaming of copyrighted media is prohibited.","source_url":"https://developer.chrome.com/docs/webstore/program-policies/policies","source_effective_date":"2026-08-16","last_checked":"2026-08-16","quote":"Do not encourage, facilitate, or enable the unauthorized access, download, or streaming of copyrighted content or media.","tags":["downloader","ip_infringement"]},{"platform":"cws","rule_id":"cws-crypto-mining","verdict":"prohibited","category":"crypto-mining","summary":"Cryptocurrency mining is not allowed.","source_url":"https://developer.chrome.com/docs/webstore/program-policies/policies","source_effective_date":"2026-08-16","last_checked":"2026-08-16","quote":"We do not allow the mining of cryptocurrency.","tags":["crypto_mining"]},{"platform":"cws","rule_id":"cws-adult","verdict":"prohibited","category":"adult","summary":"Nudity, sexually explicit material, and traffic to commercial pornography are not allowed.","source_url":"https://developer.chrome.com/docs/webstore/program-policies/policies","source_effective_date":"2026-08-16","last_checked":"2026-08-16","quote":"We don't allow content that contains nudity, graphic sex acts, sexually explicit material, or content that drives traffic to commercial pornography sites.","tags":["adult"]},{"platform":"cws","rule_id":"cws-gambling","verdict":"prohibited","category":"gambling","summary":"Real-money gambling and prediction markets are not allowed.","source_url":"https://developer.chrome.com/docs/webstore/program-policies/policies","source_effective_date":"2026-08-16","last_checked":"2026-08-16","quote":"We don't allow content or services that facilitate or promote real money gambling or prediction markets, including but not limited to online casinos, sports betting, lotteries, or games of skill that offer prizes of cash or other value.","tags":["gambling"]},{"platform":"cws","rule_id":"cws-regulated-goods","verdict":"prohibited","category":"regulated-goods","summary":"Facilitating sale of regulated goods (pharma, alcohol, tobacco, weapons, gambling, medical devices) is not allowed.","source_url":"https://developer.chrome.com/docs/webstore/program-policies/policies","source_effective_date":"2026-08-16","last_checked":"2026-08-16","quote":"We don't allow the facilitation of the sale of regulated products or services. Regulated goods include pharmaceuticals, alcohol, tobacco, fireworks, weapons, gambling, or health and medical devices.","tags":["pharma","alcohol","tobacco","weapons"]},{"platform":"cws","rule_id":"cws-hate","verdict":"prohibited","category":"hate-speech","summary":"Content advocating hatred toward protected groups is not allowed.","source_url":"https://developer.chrome.com/docs/webstore/program-policies/policies","source_effective_date":"2026-08-16","last_checked":"2026-08-16","quote":"We don't allow content or products that advocating against or inciting hatred towards groups of people based on their race or ethnic origin, religion, disability, gender, age, veteran status, nationality, sexual orientation, gender, gender identity, or any other characteristic that is associated with systematic discrimination or marginalization.","tags":["hate"]},{"platform":"cws","rule_id":"cws-deceptive","verdict":"prohibited","category":"deceptive-behavior","summary":"Products that deceive or mislead users are not allowed.","source_url":"https://developer.chrome.com/docs/webstore/program-policies/policies","source_effective_date":"2026-08-16","last_checked":"2026-08-16","quote":"We do not allow products that deceive or mislead users, including in the content, title, description, or screenshots.","tags":["deceptive"]},{"platform":"cws","rule_id":"cws-spam-messages","verdict":"prohibited","category":"unsolicited-messages","summary":"Extensions that send messages on behalf of the user without confirmation are not allowed.","source_url":"https://developer.chrome.com/docs/webstore/program-policies/policies","source_effective_date":"2026-08-16","last_checked":"2026-08-16","quote":"We don't allow extensions that send messages on behalf of the user without giving the user the ability to confirm the content and intended recipients.","tags":["outreach","unsolicited_marketing","bulk_sms"]},{"platform":"cws","rule_id":"cws-browsing-data","verdict":"restricted_review","category":"browsing-data","summary":"Collection of web browsing activity is prohibited except for a prominently disclosed user-facing feature.","source_url":"https://developer.chrome.com/docs/webstore/program-policies/policies","source_effective_date":"2026-08-16","last_checked":"2026-08-16","quote":"Collection and use of web browsing activity is prohibited, except to the extent required for a user-facing feature described prominently in the Product's Chrome Web Store page and in the Product's user interface.","tags":["browsing_data"]},{"platform":"cws","rule_id":"cws-trader-declare","verdict":"restricted_review","category":"trader-declaration","summary":"Every CWS developer must declare Trader or Non-Trader under the EU Digital Services Act.","source_url":"https://developer.chrome.com/docs/webstore/program-policies/trader-verification-faq","source_effective_date":"2026-08-16","last_checked":"2026-08-16","quote":"All developers on the Chrome Web Store are required to declare if they are a Trader or Non-Trader.","tags":["trader"]},{"platform":"cws","rule_id":"cws-trader-public","verdict":"restricted_review","category":"trader-public-info","summary":"Trader legal name, phone, and address are posted publicly on the extension listing.","source_url":"https://developer.chrome.com/docs/webstore/program-policies/trader-verification-faq","source_effective_date":"2026-08-16","last_checked":"2026-08-16","quote":"This information that traders provide will be posted publicly at the bottom of your extension listing.","tags":["trader"]},{"platform":"github","rule_id":"github-human-creates","verdict":"allowed","category":"human-creates-account","summary":"A human must create the GitHub account; machine accounts are permitted if a human sets them up.","source_url":"https://docs.github.com/en/site-policy/github-terms/github-terms-of-service","source_effective_date":"2026-04-27","last_checked":"2026-08-16","quote":"You must be a human to create an Account. Accounts registered by \"bots\" or other automated methods are not permitted.","tags":["software_saas","cli","library","chrome_extension"]},{"platform":"github","rule_id":"github-machine-account","verdict":"allowed","category":"machine-account","summary":"GitHub permits one free machine account set up by an individual human who accepts the Terms.","source_url":"https://docs.github.com/en/site-policy/github-terms/github-terms-of-service","source_effective_date":"2026-04-27","last_checked":"2026-08-16","quote":"A machine account is an Account set up by an individual human who accepts the Terms on behalf of the Account, provides a valid email address, and is responsible for its actions.","tags":["machine_account"]},{"platform":"github","rule_id":"github-no-bot-signup","verdict":"prohibited","category":"bot-self-registration","summary":"Accounts registered by bots or other automated methods are not permitted.","source_url":"https://docs.github.com/en/site-policy/github-terms/github-terms-of-service","source_effective_date":"2026-04-27","last_checked":"2026-08-16","quote":"Accounts registered by \"bots\" or other automated methods are not permitted.","tags":["bot_signup"]},{"platform":"github","rule_id":"github-api-spam","verdict":"prohibited","category":"api-spam-pii","summary":"Using the GitHub API to download data for spamming or selling users' personal information is prohibited.","source_url":"https://docs.github.com/en/site-policy/github-terms/github-terms-of-service","source_effective_date":"2026-04-27","last_checked":"2026-08-16","quote":"You may not use the API to download data or Content from GitHub for spamming purposes, including for the purposes of selling GitHub users' personal information, such as to recruiters, headhunters, and job boards.","tags":["osint","data_resale","people_search"]}]}</script>
+  <script>
+    const NAMES = {
+      polar: "Polar",
+      lemon: "Lemon Squeezy",
+      stripe: "Stripe",
+      cws: "Chrome Web Store",
+      github: "GitHub"
+    };
+    const ORDER = ["polar", "lemon", "stripe", "cws", "github"];
+    const $ = (id) => document.getElementById(id);
+    const esc = (s) => String(s ?? "").replace(/[&<>"']/g, (c) => ({
+      "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;"
+    }[c]));
+
+    let bundle = { rules: [], sources: [] };
+
+    function rulesOf() { return bundle.rules || []; }
+
+    function renderCards() {
+      const rules = rulesOf();
+      const host = $("platform-cards");
+      host.innerHTML = ORDER.map((p) => {
+        const n = rules.filter((r) => r.platform === p).length;
+        const src = (bundle.sources || []).find((s) => s.platform === p);
+        const date = src ? src.effective_date : "";
+        return `<div class="plat-card">
+          <strong>${esc(NAMES[p] || p)}</strong>
+          <span class="n">${n}</span>
+          <small>${n === 1 ? "rule" : "rules"}${date ? " · " + esc(date) : ""}</small>
+        </div>`;
+      }).join("");
+    }
+
+    function fillPlatformSelect() {
+      const sel = $("platform");
+      const seen = new Set(rulesOf().map((r) => r.platform));
+      ORDER.filter((p) => seen.has(p)).forEach((p) => {
+        const opt = document.createElement("option");
+        opt.value = p;
+        opt.textContent = NAMES[p] || p;
+        sel.appendChild(opt);
+      });
+    }
+
+    function render() {
+      const p = $("platform").value;
+      const v = $("verdict").value;
+      const q = $("q").value.toLowerCase().trim();
+      const rows = rulesOf().filter((r) => {
+        if (p && r.platform !== p) return false;
+        if (v && r.verdict !== v) return false;
+        if (q) {
+          const blob = [r.rule_id, r.platform, r.category, r.summary, r.quote, r.source_url, (r.tags || []).join(" ")].join(" ").toLowerCase();
+          if (!blob.includes(q)) return false;
+        }
+        return true;
+      });
+      $("count").textContent = rows.length + " of " + rulesOf().length + " rules";
+      $("rows").innerHTML = rows.map((r) => `
+        <article class="rule">
+          <header>
+            <code class="rid">${esc(r.rule_id)}</code>
+            <span class="platn">${esc(NAMES[r.platform] || r.platform)}</span>
+            <span class="pill ${esc(r.verdict)}">${esc(r.verdict)}</span>
+            <span class="platn">${esc(r.category)}</span>
+          </header>
+          <p class="sum">${esc(r.summary)}</p>
+          <blockquote>“${esc(r.quote)}”</blockquote>
+          <p class="src">
+            <a href="${esc(r.source_url)}">${esc(r.source_url)}</a>
+            · effective ${esc(r.source_effective_date)} · checked ${esc(r.last_checked)}
+          </p>
+        </article>`).join("");
+    }
+
+    async function load() {
+      const note = $("load-note");
+      try {
+        const res = await fetch("./2026-08.json");
+        if (res.ok) {
+          bundle = await res.json();
+          note.textContent = "Loaded sibling 2026-08.json (http/https or a browser that allows file fetch).";
+          return;
+        }
+      } catch (e) { /* file:// is expected to fail here */ }
+      const raw = $("sellfit-data").textContent;
+      bundle = JSON.parse(raw);
+      note.textContent = "Using the inlined 2026-08 copy. file:// cannot fetch the sibling JSON in most browsers; that is expected.";
+    }
+
+    (async () => {
+      try {
+        await load();
+        fillPlatformSelect();
+        renderCards();
+        render();
+        ["platform", "verdict", "q"].forEach((id) => $(id).addEventListener("input", render));
+      } catch (err) {
+        $("load-note").classList.add("err");
+        $("load-note").textContent = "Could not read the inlined dataset. Open this file from disk, or host docs/ on GitHub Pages.";
+      }
+    })();
+  </script>
+</body>
+</html>

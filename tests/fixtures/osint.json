@@ -1,0 +1,7 @@
+{
+  "idea": "OSINT people-search that exposes personal data",
+  "expect": {
+    "polar": "prohibited",
+    "rule_id": "polar-36"
+  }
+}

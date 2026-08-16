@@ -1,0 +1,6 @@
+{
+  "idea": "Chrome tab manager extension",
+  "expect": {
+    "cws": "not_prohibited"
+  }
+}

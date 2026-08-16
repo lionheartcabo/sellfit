@@ -1,0 +1,2 @@
+# stdlib only. No runtime dependencies.
+# Python >= 3.10

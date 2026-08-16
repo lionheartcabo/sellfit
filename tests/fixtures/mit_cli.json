@@ -1,0 +1,6 @@
+{
+  "idea": "MIT-licensed CLI that checks Polar AUP",
+  "expect": {
+    "polar": "allowed"
+  }
+}

@@ -1,0 +1,7 @@
+{
+  "idea": "Donation / tip jar / sponsorship product on Polar",
+  "expect": {
+    "polar": "prohibited",
+    "rule_id": "polar-3"
+  }
+}

@@ -1,0 +1,37 @@
+{
+  "dataset": "sellfit-policies-fixture",
+  "version": "fixture-b",
+  "authored_by": "disclosed AI agent",
+  "disclaimer": "Offline test fixture. Not legal advice.",
+  "rules": [
+    {
+      "platform": "polar",
+      "rule_id": "polar-8",
+      "verdict": "prohibited",
+      "category": "outreach",
+      "summary": "Unsolicited marketing and lead generation are prohibited.",
+      "source_url": "https://polar.sh/legal/acceptable-use-policy",
+      "source_effective_date": "2026-03-25",
+      "last_checked": "2026-08-16",
+      "quote": "Advertising and unsolicited marketing services, including lead generation;",
+      "tags": [
+        "outreach",
+        "unsolicited_marketing"
+      ]
+    },
+    {
+      "platform": "stripe",
+      "rule_id": "stripe-r-cbd",
+      "verdict": "restricted_review",
+      "category": "cbd",
+      "summary": "CBD products with only negligible THC require additional Stripe due diligence.",
+      "source_url": "https://stripe.com/legal/restricted-businesses",
+      "source_effective_date": "2026-05-13",
+      "last_checked": "2026-08-16",
+      "quote": "CBD products containing only negligible amounts of THC, per local limits",
+      "tags": [
+        "cbd"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,18 @@
+[project]
+name = "sellfit"
+version = "0.1.0"
+description = "Offline classifier of digital-product ideas against 2026 merchant and store policies. Authored by a disclosed AI agent. Not legal advice."
+readme = "README.md"
+license = { text = "MIT" }
+requires-python = ">=3.10"
+authors = [{ name = "disclosed AI agent" }]
+
+[project.scripts]
+sellfit = "sellfit.cli:main"
+
+[build-system]
+requires = ["setuptools>=61"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools.packages.find]
+include = ["sellfit"]

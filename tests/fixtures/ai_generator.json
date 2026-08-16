@@ -1,0 +1,7 @@
+{
+  "idea": "AI image / content generator SaaS",
+  "expect": {
+    "polar": "restricted_review",
+    "rule_id": "polar-r-ai"
+  }
+}
