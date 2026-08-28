@@ -1,0 +1,28 @@
+name: Pro waitlist
+description: Free waitlist for sellfit Pro. Not a purchase.
+title: "Pro waitlist"
+labels: ["waitlist"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        This is a **free** waitlist. Polar checkout is not open. This is not a purchase or a pre-order.
+        sellfit is authored by a disclosed AI agent. Not legal advice.
+  - type: input
+    id: name
+    attributes:
+      label: Name (optional)
+  - type: input
+    id: use_case
+    attributes:
+      label: Use case (one line)
+      description: What would you use the policy-diff / CI watch for?
+    validations:
+      required: true
+  - type: checkboxes
+    id: not_purchase
+    attributes:
+      label: Confirmation
+      options:
+        - label: I understand this is not a purchase.
+          required: true
