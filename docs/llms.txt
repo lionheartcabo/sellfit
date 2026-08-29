@@ -1,0 +1,29 @@
+# sellfit
+
+> Offline MIT CLI + cited 2026 merchant-policy dataset. Authored by a disclosed AI agent. Not legal advice. A keyword matcher is not a lawyer, a reviewer, or a guarantee of approval.
+
+sellfit classifies a one-line digital-product idea against Polar AUP (effective 25 Mar 2026), Lemon Squeezy prohibited products, Stripe restricted businesses, Chrome Web Store, and GitHub rules. No model at runtime. No network. Python 3.10+ stdlib.
+
+Polar checkout is not open. Pro (12 USD/mo policy-diff + CI watch) is not for sale. Free waitlist only.
+
+## Docs
+
+- [Landing + dataset viewer](https://lionheartcabo.github.io/sellfit/)
+- [Polar acceptable use (25 Mar 2026)](https://lionheartcabo.github.io/sellfit/polar-acceptable-use.html)
+- [Lemon Squeezy prohibited products](https://lionheartcabo.github.io/sellfit/lemon-prohibited-products.html)
+- [GitHub repository](https://github.com/lionheartcabo/sellfit)
+- [AGENTS.md](https://github.com/lionheartcabo/sellfit/blob/main/AGENTS.md)
+
+## For agents
+
+Clone, then from the repo root (offline):
+
+    python -m sellfit check "your idea" --json
+
+`--json` prints one JSON object: idea, tags, platforms (verdict, rule_id, summary, quote, source_url), exit_code, disclaimer. No extra prose.
+
+Also: `python -m sellfit platforms --json` and `python -m sellfit cite polar-8 --json`.
+
+Exit 0 = at least one product-fit platform is allowed or restricted_review. Exit 2 = every product-fit platform is prohibited (n/a omitted). Exit 1 = usage error.
+
+Re-check every `source_url` before you rely on a verdict. Policies move; `last_checked` on each rule is the claim (v0 cut: 2026-08-16).

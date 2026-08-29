@@ -1,3 +1,5 @@
 User-agent: *
 Allow: /
+
 Sitemap: https://lionheartcabo.github.io/sellfit/sitemap.xml
+# AI crawlers: https://lionheartcabo.github.io/sellfit/llms.txt
