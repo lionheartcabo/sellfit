@@ -1,0 +1,635 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Stripe restricted businesses — will Stripe accept my product?</title>
+  <meta name="description" content="Stripe restricted businesses list, cited from the official page (last updated 2026-05-13). sellfit checks a one-line idea offline. Authored by a disclosed AI agent. Not legal advice.">
+  <link rel="canonical" href="https://lionheartcabo.github.io/sellfit/stripe-restricted-businesses.html">
+  <link rel="sitemap" type="application/xml" href="https://lionheartcabo.github.io/sellfit/sitemap.xml">
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="Stripe restricted businesses — will Stripe accept my product?">
+  <meta property="og:description" content="Cited Stripe prohibited and restricted businesses (last updated 2026-05-13). Authored by a disclosed AI agent. Not legal advice.">
+  <meta property="og:url" content="https://lionheartcabo.github.io/sellfit/stripe-restricted-businesses.html">
+  <meta name="twitter:card" content="summary">
+  <link rel="alternate" type="text/plain" href="https://lionheartcabo.github.io/sellfit/llms.txt" title="llms.txt">
+  <style>
+    :root {
+      color-scheme: light dark;
+      --paper: #f3eee4;
+      --ink: #1b1712;
+      --muted: #5c564c;
+      --faint: #8a8274;
+      --rule: #cfc4b2;
+      --surface: #faf6ee;
+      --brick: #8f2d22;
+      --brick-ink: #6e2018;
+      --ok: #1b5e38;
+      --ok-wash: #d7ebde;
+      --rev: #8a5a00;
+      --rev-wash: #f3e4b8;
+      --no: #9b1c14;
+      --no-wash: #f3d6d1;
+      --focus: #2c4a6e;
+      --mono: ui-monospace, "SFMono-Regular", "Cascadia Code", Menlo, Consolas, monospace;
+      --sans: "Segoe UI", system-ui, -apple-system, sans-serif;
+      --serif: "Iowan Old Style", "Palatino Linotype", Palatino, "Book Antiqua", Georgia, serif;
+    }
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --paper: #14110d;
+        --ink: #ece4d6;
+        --muted: #b3a894;
+        --faint: #8a8070;
+        --rule: #3a3328;
+        --surface: #1c1813;
+        --brick: #e08a7c;
+        --brick-ink: #f0c2ba;
+        --ok: #7dcea0;
+        --ok-wash: #1a3326;
+        --rev: #e0b84a;
+        --rev-wash: #3a2e10;
+        --no: #f0a098;
+        --no-wash: #3a1c18;
+        --focus: #9ab4d4;
+      }
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      background: var(--paper);
+      color: var(--ink);
+      font: 16.5px/1.5 var(--sans);
+    }
+    a { color: var(--brick-ink); }
+    a:hover { text-decoration-thickness: 2px; }
+    :focus-visible { outline: 2px solid var(--focus); outline-offset: 2px; }
+    code, kbd, .mono { font-family: var(--mono); font-size: .92em; }
+    .skip { position: absolute; left: -999px; top: 0; }
+    .skip:focus { left: 1rem; top: 1rem; background: var(--surface); padding: .4rem .6rem; z-index: 2; }
+    .disclosure {
+      background: var(--ink);
+      color: var(--paper);
+      font-size: .92rem;
+      letter-spacing: .01em;
+    }
+    .disclosure .wrap { padding: .7rem 0; }
+    .disclosure strong { font-weight: 700; }
+    .wrap { width: min(760px, calc(100% - 2.4rem)); margin: 0 auto; }
+    header.mast { padding: 2.1rem 0 1.4rem; border-bottom: 1px solid var(--rule); }
+    .kicker {
+      font-family: var(--mono);
+      font-size: .78rem;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      color: var(--brick);
+      margin: 0 0 .45rem;
+    }
+    h1 {
+      font-family: var(--serif);
+      font-weight: 600;
+      font-size: clamp(1.85rem, 4vw, 2.45rem);
+      line-height: 1.08;
+      letter-spacing: -.02em;
+      margin: 0 0 .7rem;
+    }
+    .lede { max-width: 40rem; font-size: 1.12rem; margin: 0 0 1rem; }
+    .meta { color: var(--muted); font-size: .9rem; }
+    .meta code { color: var(--ink); }
+    .guides { margin: .7rem 0 0; }
+    h2 {
+      font-family: var(--serif);
+      font-size: 1.45rem;
+      font-weight: 600;
+      margin: 0 0 .55rem;
+    }
+    h3 { font-family: var(--serif); font-size: 1.12rem; font-weight: 600; margin: 0 0 .35rem; }
+    section { padding: 1.6rem 0; border-bottom: 1px solid var(--rule); }
+    .muted { color: var(--muted); }
+    ul.plain { margin: .3rem 0 0; padding-left: 1.15rem; }
+    ul.plain li { margin: .2rem 0; }
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      padding: .22rem .55rem;
+      border: 1px solid var(--rule);
+      background: var(--surface);
+      font-size: .86rem;
+      font-weight: 650;
+    }
+    .pill.allowed { color: var(--ok); background: var(--ok-wash); border-color: transparent; }
+    .pill.restricted_review { color: var(--rev); background: var(--rev-wash); border-color: transparent; }
+    .pill.prohibited { color: var(--no); background: var(--no-wash); border-color: transparent; }
+    article.rule {
+      background: var(--surface);
+      border: 1px solid var(--rule);
+      padding: .7rem .8rem .75rem;
+      margin: .7rem 0 0;
+    }
+    article.rule header {
+      display: flex;
+      flex-wrap: wrap;
+      gap: .35rem .6rem;
+      align-items: baseline;
+      margin-bottom: .3rem;
+    }
+    article.rule .rid { font-weight: 650; }
+    article.rule .sum { margin: .15rem 0 .35rem; }
+    article.rule blockquote {
+      margin: 0 0 .4rem;
+      padding-left: .7rem;
+      border-left: 2px solid var(--rule);
+      color: var(--muted);
+      font-size: .92rem;
+    }
+    article.rule .src { font-size: .82rem; color: var(--faint); word-break: break-word; }
+    .slip {
+      background: var(--surface);
+      border: 1px solid var(--rule);
+      padding: .85rem 1rem 1rem;
+    }
+    .slip pre {
+      margin: .55rem 0 0;
+      white-space: pre-wrap;
+      font-family: var(--mono);
+      font-size: .78rem;
+      line-height: 1.45;
+      color: var(--ink);
+    }
+    footer.col { padding: 1.4rem 0 2.4rem; color: var(--muted); font-size: .88rem; }
+    footer.col p { margin: .4rem 0; max-width: 42rem; }
+    @media (max-width: 840px) {
+      .wrap { width: calc(100% - 1.6rem); }
+    }
+    @media print {
+      .disclosure { color: #000; background: #fff; border-bottom: 2px solid #000; }
+      body { background: #fff; color: #000; }
+    }
+  </style>
+</head>
+<body>
+  <a class="skip" href="#quotes">Skip to cited rules</a>
+  <div class="disclosure">
+    <div class="wrap">
+      <strong>Authored by a disclosed AI agent. Not legal advice.</strong>
+      A keyword matcher is not a lawyer, a reviewer, or a guarantee of approval.
+      Re-check the official Stripe page before you rely on a verdict.
+    </div>
+  </div>
+
+  <header class="mast">
+    <div class="wrap">
+      <p class="kicker">Stripe restricted businesses · last updated 13 May 2026 · last checked 16 Aug 2026</p>
+      <h1>Stripe restricted businesses</h1>
+      <p class="lede">
+        Stripe’s prohibited and restricted businesses page is the reject list
+        payment processors enforce after you have already built. It names
+        industries Stripe will not serve, and categories that need extra due
+        diligence. Ordinary software and SaaS are not on that list.
+        sellfit checks a one-line idea against the cited rules and prints the quote.
+      </p>
+      <p class="meta">
+        Official source (canonical):
+        <a href="https://stripe.com/legal/restricted-businesses">https://stripe.com/legal/restricted-businesses</a>
+        · Last updated — May 13, 2026.
+        Quotes below are copied from <code>data/policies/2026-08.json</code>,
+        fetched 16 August 2026. They were not invented.
+        (25 Stripe rules in the dataset: 1 allowed,
+        15 prohibited, 9 restricted_review.)
+      </p>
+      <p class="meta guides">
+        Guides:
+        <a href="index.html">sellfit dataset</a>
+        ·
+        <a href="polar-acceptable-use.html">Polar acceptable use</a>
+        ·
+        <a href="lemon-prohibited-products.html">Lemon Squeezy prohibited products</a>
+        ·
+        Stripe restricted businesses
+      </p>
+    </div>
+  </header>
+
+  <main>
+    <section>
+      <div class="wrap">
+        <h2>What Stripe’s list covers</h2>
+        <p class="muted" style="margin-top:0">
+          The page lists businesses that cannot use Stripe, plus restricted
+          categories that need more review. Unlisted ordinary software is the
+          cash-register case sellfit treats as allowed.
+        </p>
+
+        <article class="rule" id="stripe-scope">
+          <header>
+            <code class="rid">stripe-scope</code>
+            <span class="pill allowed">allowed</span>
+            <span class="muted">unlisted-ordinary-business</span>
+          </header>
+          <p class="sum">Stripe&#x27;s list covers specific prohibited and restricted categories; ordinary software/SaaS is not listed.</p>
+          <blockquote>“This page provides information on the types of businesses, products, and industries that can’t use Stripe’s services.”</blockquote>
+          <p class="src">
+            <a href="https://stripe.com/legal/restricted-businesses">https://stripe.com/legal/restricted-businesses</a>
+            · last updated 2026-05-13 · checked 2026-08-16
+          </p>
+        </article>
+      </div>
+    </section>
+
+    <section id="quotes">
+      <div class="wrap">
+        <h2>Prohibited businesses</h2>
+        <p class="muted" style="margin-top:0">
+          Copied from the same JSON. Re-open the official page before you ship —
+          this is a cited subset for identification, not legal advice.
+        </p>
+
+        <article class="rule" id="stripe-illegal">
+          <header>
+            <code class="rid">stripe-illegal</code>
+            <span class="pill prohibited">prohibited</span>
+            <span class="muted">illegal</span>
+          </header>
+          <p class="sum">Illegal products and services cannot use Stripe.</p>
+          <blockquote>“You must not use Stripe&#x27;s services for any illegal activities or for the businesses or product types listed below.”</blockquote>
+          <p class="src">
+            <a href="https://stripe.com/legal/restricted-businesses">https://stripe.com/legal/restricted-businesses</a>
+            · last updated 2026-05-13 · checked 2026-08-16
+          </p>
+        </article>
+        <article class="rule" id="stripe-adult">
+          <header>
+            <code class="rid">stripe-adult</code>
+            <span class="pill prohibited">prohibited</span>
+            <span class="muted">adult</span>
+          </header>
+          <p class="sum">Adult content and services, including qualifying AI-generated adult content, are prohibited.</p>
+          <blockquote>“Pornography and other mature audience content (including literature, imagery, and other media) designed for the purpose of sexual gratification”</blockquote>
+          <p class="src">
+            <a href="https://stripe.com/legal/restricted-businesses">https://stripe.com/legal/restricted-businesses</a>
+            · last updated 2026-05-13 · checked 2026-08-16
+          </p>
+        </article>
+        <article class="rule" id="stripe-adult-ai">
+          <header>
+            <code class="rid">stripe-adult-ai</code>
+            <span class="pill prohibited">prohibited</span>
+            <span class="muted">adult-ai</span>
+          </header>
+          <p class="sum">AI-generated content that meets Stripe&#x27;s adult-content criteria is prohibited.</p>
+          <blockquote>“Any artificial-intelligence generated content that meets the above criteria”</blockquote>
+          <p class="src">
+            <a href="https://stripe.com/legal/restricted-businesses">https://stripe.com/legal/restricted-businesses</a>
+            · last updated 2026-05-13 · checked 2026-08-16
+          </p>
+        </article>
+        <article class="rule" id="stripe-gambling">
+          <header>
+            <code class="rid">stripe-gambling</code>
+            <span class="pill prohibited">prohibited</span>
+            <span class="muted">gambling</span>
+          </header>
+          <p class="sum">Games of chance with a monetary or material prize are prohibited.</p>
+          <blockquote>“Games of chance including gambling, internet gambling, casino games, sweepstakes and contests, and fantasy sports leagues with a monetary or material prize”</blockquote>
+          <p class="src">
+            <a href="https://stripe.com/legal/restricted-businesses">https://stripe.com/legal/restricted-businesses</a>
+            · last updated 2026-05-13 · checked 2026-08-16
+          </p>
+        </article>
+        <article class="rule" id="stripe-ip">
+          <header>
+            <code class="rid">stripe-ip</code>
+            <span class="pill prohibited">prohibited</span>
+            <span class="muted">ip-infringement</span>
+          </header>
+          <p class="sum">Sale or distribution of licensed materials without authorization is prohibited.</p>
+          <blockquote>“Sales or distribution of music, movies, software, or any other licensed materials without appropriate authorization”</blockquote>
+          <p class="src">
+            <a href="https://stripe.com/legal/restricted-businesses">https://stripe.com/legal/restricted-businesses</a>
+            · last updated 2026-05-13 · checked 2026-08-16
+          </p>
+        </article>
+        <article class="rule" id="stripe-get-rich">
+          <header>
+            <code class="rid">stripe-get-rich</code>
+            <span class="pill prohibited">prohibited</span>
+            <span class="muted">get-rich</span>
+          </header>
+          <p class="sum">Get-rich-quick schemes are prohibited as unfair or deceptive practices.</p>
+          <blockquote>“&quot;Get rich quick&quot; schemes, including investment opportunities or other services that promise high rewards to mislead consumers; schemes that claim to offer high rewards for very little effort or up-front work; and sites that promise fast and easy money”</blockquote>
+          <p class="src">
+            <a href="https://stripe.com/legal/restricted-businesses">https://stripe.com/legal/restricted-businesses</a>
+            · last updated 2026-05-13 · checked 2026-08-16
+          </p>
+        </article>
+        <article class="rule" id="stripe-telemarketing">
+          <header>
+            <code class="rid">stripe-telemarketing</code>
+            <span class="pill prohibited">prohibited</span>
+            <span class="muted">telemarketing</span>
+          </header>
+          <p class="sum">Telemarketing is listed among Stripe&#x27;s prohibited unfair, deceptive, or abusive practices.</p>
+          <blockquote>“Telemarketing”</blockquote>
+          <p class="src">
+            <a href="https://stripe.com/legal/restricted-businesses">https://stripe.com/legal/restricted-businesses</a>
+            · last updated 2026-05-13 · checked 2026-08-16
+          </p>
+        </article>
+        <article class="rule" id="stripe-fake-testimonials">
+          <header>
+            <code class="rid">stripe-fake-testimonials</code>
+            <span class="pill prohibited">prohibited</span>
+            <span class="muted">fake-testimonials</span>
+          </header>
+          <p class="sum">Businesses that use fake testimonials or deceptive claims are prohibited.</p>
+          <blockquote>“Businesses that make outrageous claims, use deceptive testimonials, use high-pressure upselling, or use fake testimonials (with or without a written contract)”</blockquote>
+          <p class="src">
+            <a href="https://stripe.com/legal/restricted-businesses">https://stripe.com/legal/restricted-businesses</a>
+            · last updated 2026-05-13 · checked 2026-08-16
+          </p>
+        </article>
+        <article class="rule" id="stripe-crypto-mining">
+          <header>
+            <code class="rid">stripe-crypto-mining</code>
+            <span class="pill prohibited">prohibited</span>
+            <span class="muted">crypto-mining</span>
+          </header>
+          <p class="sum">Cryptocurrency mining, staking, ICOs, and secondary NFT sales are prohibited.</p>
+          <blockquote>“Cryptocurrency mining and staking”</blockquote>
+          <p class="src">
+            <a href="https://stripe.com/legal/restricted-businesses">https://stripe.com/legal/restricted-businesses</a>
+            · last updated 2026-05-13 · checked 2026-08-16
+          </p>
+        </article>
+        <article class="rule" id="stripe-p2p">
+          <header>
+            <code class="rid">stripe-p2p</code>
+            <span class="pill prohibited">prohibited</span>
+            <span class="muted">p2p-money</span>
+          </header>
+          <p class="sum">Peer-to-peer money transmission is a prohibited financial product.</p>
+          <blockquote>“Peer-to-peer money transmission”</blockquote>
+          <p class="src">
+            <a href="https://stripe.com/legal/restricted-businesses">https://stripe.com/legal/restricted-businesses</a>
+            · last updated 2026-05-13 · checked 2026-08-16
+          </p>
+        </article>
+        <article class="rule" id="stripe-weapons-illegal">
+          <header>
+            <code class="rid">stripe-weapons-illegal</code>
+            <span class="pill prohibited">prohibited</span>
+            <span class="muted">illegal-weapons</span>
+          </header>
+          <p class="sum">Illegal weapons and accessories are prohibited.</p>
+          <blockquote>“Illegal weapons and accessories”</blockquote>
+          <p class="src">
+            <a href="https://stripe.com/legal/restricted-businesses">https://stripe.com/legal/restricted-businesses</a>
+            · last updated 2026-05-13 · checked 2026-08-16
+          </p>
+        </article>
+        <article class="rule" id="stripe-traffic">
+          <header>
+            <code class="rid">stripe-traffic</code>
+            <span class="pill prohibited">prohibited</span>
+            <span class="muted">traffic-sales</span>
+          </header>
+          <p class="sum">Sales of online traffic or engagement are prohibited.</p>
+          <blockquote>“Sales of online traffic or engagement”</blockquote>
+          <p class="src">
+            <a href="https://stripe.com/legal/restricted-businesses">https://stripe.com/legal/restricted-businesses</a>
+            · last updated 2026-05-13 · checked 2026-08-16
+          </p>
+        </article>
+        <article class="rule" id="stripe-tech-support">
+          <header>
+            <code class="rid">stripe-tech-support</code>
+            <span class="pill prohibited">prohibited</span>
+            <span class="muted">remote-tech-support</span>
+          </header>
+          <p class="sum">Suspicious remote technical support is prohibited.</p>
+          <blockquote>“Suspicious remote technical support”</blockquote>
+          <p class="src">
+            <a href="https://stripe.com/legal/restricted-businesses">https://stripe.com/legal/restricted-businesses</a>
+            · last updated 2026-05-13 · checked 2026-08-16
+          </p>
+        </article>
+        <article class="rule" id="stripe-mlm">
+          <header>
+            <code class="rid">stripe-mlm</code>
+            <span class="pill prohibited">prohibited</span>
+            <span class="muted">mlm</span>
+          </header>
+          <p class="sum">Multilevel marketing with commission or recruitment-based sales is prohibited.</p>
+          <blockquote>“Multilevel marketing services offering commission or recruitment-based sales”</blockquote>
+          <p class="src">
+            <a href="https://stripe.com/legal/restricted-businesses">https://stripe.com/legal/restricted-businesses</a>
+            · last updated 2026-05-13 · checked 2026-08-16
+          </p>
+        </article>
+        <article class="rule" id="stripe-marijuana">
+          <header>
+            <code class="rid">stripe-marijuana</code>
+            <span class="pill prohibited">prohibited</span>
+            <span class="muted">marijuana</span>
+          </header>
+          <p class="sum">Cannabis products and related businesses are prohibited on Stripe.</p>
+          <blockquote>“Cannabis products”</blockquote>
+          <p class="src">
+            <a href="https://stripe.com/legal/restricted-businesses">https://stripe.com/legal/restricted-businesses</a>
+            · last updated 2026-05-13 · checked 2026-08-16
+          </p>
+        </article>
+      </div>
+    </section>
+
+    <section>
+      <div class="wrap">
+        <h2>Restricted (additional due diligence)</h2>
+        <p class="muted" style="margin-top:0">
+          These categories may still be refused after Stripe reviews them.
+        </p>
+
+        <article class="rule" id="stripe-r-crowdfunding">
+          <header>
+            <code class="rid">stripe-r-crowdfunding</code>
+            <span class="pill restricted_review">restricted_review</span>
+            <span class="muted">crowdfunding</span>
+          </header>
+          <p class="sum">Crowdfunding and fundraising require additional Stripe due diligence.</p>
+          <blockquote>“Fundraising conducted by nonprofits, charities, political organizations, and businesses offering a reward in return for donation”</blockquote>
+          <p class="src">
+            <a href="https://stripe.com/legal/restricted-businesses">https://stripe.com/legal/restricted-businesses</a>
+            · last updated 2026-05-13 · checked 2026-08-16
+          </p>
+        </article>
+        <article class="rule" id="stripe-r-content-platforms">
+          <header>
+            <code class="rid">stripe-r-content-platforms</code>
+            <span class="pill restricted_review">restricted_review</span>
+            <span class="muted">content-platforms</span>
+          </header>
+          <p class="sum">Platforms that host third-party content and take creator tips or exclusive-content sales need review.</p>
+          <blockquote>“Platforms that host or distribute third-party content and enable content creators to:”</blockquote>
+          <p class="src">
+            <a href="https://stripe.com/legal/restricted-businesses">https://stripe.com/legal/restricted-businesses</a>
+            · last updated 2026-05-13 · checked 2026-08-16
+          </p>
+        </article>
+        <article class="rule" id="stripe-r-crypto">
+          <header>
+            <code class="rid">stripe-r-crypto</code>
+            <span class="pill restricted_review">restricted_review</span>
+            <span class="muted">crypto-exchanges</span>
+          </header>
+          <p class="sum">Cryptocurrency exchanges and wallets require additional due diligence and have limited availability.</p>
+          <blockquote>“Cryptocurrency (for example, Bitcoin, Ripple, Ethereum, Dogecoin, Cardano, etc.) exchanges and wallets.”</blockquote>
+          <p class="src">
+            <a href="https://stripe.com/legal/restricted-businesses">https://stripe.com/legal/restricted-businesses</a>
+            · last updated 2026-05-13 · checked 2026-08-16
+          </p>
+        </article>
+        <article class="rule" id="stripe-r-financial">
+          <header>
+            <code class="rid">stripe-r-financial</code>
+            <span class="pill restricted_review">restricted_review</span>
+            <span class="muted">financial-services</span>
+          </header>
+          <p class="sum">Investment, brokerage, lending, and other financial services require Stripe sales review.</p>
+          <blockquote>“Investment and brokerage services, including real estate--based investments”</blockquote>
+          <p class="src">
+            <a href="https://stripe.com/legal/restricted-businesses">https://stripe.com/legal/restricted-businesses</a>
+            · last updated 2026-05-13 · checked 2026-08-16
+          </p>
+        </article>
+        <article class="rule" id="stripe-r-nft">
+          <header>
+            <code class="rid">stripe-r-nft</code>
+            <span class="pill restricted_review">restricted_review</span>
+            <span class="muted">first-party-nfts</span>
+          </header>
+          <p class="sum">First-party NFT minting and sales, including marketplaces and SaaS, are restricted.</p>
+          <blockquote>“First-party non-fungible tokens (NFTs) minting and sales, including marketplaces and SaaS platforms”</blockquote>
+          <p class="src">
+            <a href="https://stripe.com/legal/restricted-businesses">https://stripe.com/legal/restricted-businesses</a>
+            · last updated 2026-05-13 · checked 2026-08-16
+          </p>
+        </article>
+        <article class="rule" id="stripe-r-due-diligence">
+          <header>
+            <code class="rid">stripe-r-due-diligence</code>
+            <span class="pill restricted_review">restricted_review</span>
+            <span class="muted">restricted-general</span>
+          </header>
+          <p class="sum">Restricted businesses require additional Stripe due diligence and may be refused.</p>
+          <blockquote>“Businesses in these categories require additional due diligence by Stripe in order to confirm our ability to support them.”</blockquote>
+          <p class="src">
+            <a href="https://stripe.com/legal/restricted-businesses">https://stripe.com/legal/restricted-businesses</a>
+            · last updated 2026-05-13 · checked 2026-08-16
+          </p>
+        </article>
+        <article class="rule" id="stripe-r-dating">
+          <header>
+            <code class="rid">stripe-r-dating</code>
+            <span class="pill restricted_review">restricted_review</span>
+            <span class="muted">dating</span>
+          </header>
+          <p class="sum">Online dating and matchmaking services are restricted (prohibited in some countries).</p>
+          <blockquote>“Online dating and matchmaking services (Note: Specific prohibitions apply in India, United Arab Emirates, and Thailand; see Jurisdiction-specific prohibited businesses for more information.)”</blockquote>
+          <p class="src">
+            <a href="https://stripe.com/legal/restricted-businesses">https://stripe.com/legal/restricted-businesses</a>
+            · last updated 2026-05-13 · checked 2026-08-16
+          </p>
+        </article>
+        <article class="rule" id="stripe-r-pharma">
+          <header>
+            <code class="rid">stripe-r-pharma</code>
+            <span class="pill restricted_review">restricted_review</span>
+            <span class="muted">pharma-telemedicine</span>
+          </header>
+          <p class="sum">Online pharmacies, prescription products, and telemedicine require additional review.</p>
+          <blockquote>“Online pharmacies, including SaaS platforms”</blockquote>
+          <p class="src">
+            <a href="https://stripe.com/legal/restricted-businesses">https://stripe.com/legal/restricted-businesses</a>
+            · last updated 2026-05-13 · checked 2026-08-16
+          </p>
+        </article>
+        <article class="rule" id="stripe-r-cbd">
+          <header>
+            <code class="rid">stripe-r-cbd</code>
+            <span class="pill restricted_review">restricted_review</span>
+            <span class="muted">cbd</span>
+          </header>
+          <p class="sum">CBD products with only negligible THC (per local limits) require additional Stripe due diligence.</p>
+          <blockquote>“CBD products containing only negligible amounts of THC, per local limits”</blockquote>
+          <p class="src">
+            <a href="https://stripe.com/legal/restricted-businesses">https://stripe.com/legal/restricted-businesses</a>
+            · last updated 2026-05-13 · checked 2026-08-16
+          </p>
+        </article>
+      </div>
+    </section>
+
+    <section>
+      <div class="wrap">
+        <h2>Check your idea</h2>
+        <p class="muted" style="margin-top:0">
+          Offline. No network. From the sellfit directory (Python 3.10+).
+          Humans get the text table. Agents add <code>--json</code> for one
+          JSON object and nothing else.
+        </p>
+        <article class="slip">
+          <h3>Human text</h3>
+          <pre>python -m sellfit check "your idea"</pre>
+        </article>
+        <article class="slip" style="margin-top:.7rem">
+          <h3>For agents</h3>
+          <pre>python -m sellfit check "your idea" --json
+python -m sellfit cite stripe-telemarketing --json</pre>
+        </article>
+        <p class="muted" style="margin:.8rem 0 0">
+          Exit 0 = at least one product-fit platform is allowed or
+          restricted_review. Exit 2 = every product-fit platform is
+          prohibited. This is not Stripe’s decision.
+          Home:
+          <a href="index.html">sellfit Pages</a>
+          · Pro waitlist (not for sale):
+          <a href="index.html#pro">#pro</a>.
+        </p>
+      </div>
+    </section>
+
+    <section>
+      <div class="wrap">
+        <h2>What this page is not</h2>
+        <ul class="plain">
+          <li>Not Stripe’s opinion and not a promise you will be approved.</li>
+          <li>Not a live crawl. The claim is <code>last_checked</code> 2026-08-16.</li>
+          <li>Not the full restricted list. Open the official page. Filter the
+            <a href="index.html">2026-08 dataset</a> for every Stripe rule.</li>
+          <li>MIT CLI is public; Polar checkout is not open yet. Authored by a disclosed AI agent.</li>
+        </ul>
+      </div>
+    </section>
+  </main>
+
+  <footer class="col">
+    <div class="wrap">
+      <p>
+        MIT license on the software. Stripe policy text remains Stripe’s.
+        Quotes are short excerpts copied from
+        <code>data/policies/2026-08.json</code> for identification.
+        Re-fetch <a href="https://stripe.com/legal/restricted-businesses">the official restricted-businesses page</a>
+        before you ship.
+      </p>
+      <p>
+        <a href="index.html">sellfit</a>
+        ·
+        <a href="polar-acceptable-use.html">Polar acceptable use</a>
+        ·
+        <a href="lemon-prohibited-products.html">Lemon Squeezy prohibited products</a>
+        · Authored by a disclosed AI agent. Do not sign up from an agent.
+      </p>
+    </div>
+  </footer>
+</body>
+</html>
