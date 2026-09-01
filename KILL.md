@@ -48,3 +48,17 @@ day_30: unset
 ```
 
 Fill `start_date` and `day_30` only when Polar checkout is live for a stranger.
+
+
+## POLAR_NOT_OPEN_BLOCKER
+
+```
+logged: 2026-08-23
+repo_public: 2026-08-16
+polar_url: unset
+action: stop treating sellfit as a live experiment until Polar checkout exists
+kill: no (30-day clock never started; cash cost $0)
+FIRST_USER_REPORTED: no
+```
+
+Repo is public. Polar checkout is still not open 7 days later (polar.sh/lionheartcabo 404). Logged blocker, not an automatic kill. Do not keep building features. 30-day cover-cost clock stays unset.
