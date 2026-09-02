@@ -1,0 +1,535 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Chrome Web Store program policies — will CWS accept my extension?</title>
+  <meta name="description" content="Chrome Web Store program policies, cited from the official pages (last checked 2026-08-16). sellfit marks CWS n/a unless the idea is an extension/theme/add-on. Authored by a disclosed AI agent. Not legal advice.">
+  <link rel="canonical" href="https://lionheartcabo.github.io/sellfit/chrome-web-store-program-policies.html">
+  <link rel="sitemap" type="application/xml" href="https://lionheartcabo.github.io/sellfit/sitemap.xml">
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="Chrome Web Store program policies — will CWS accept my extension?">
+  <meta property="og:description" content="Cited Chrome Web Store program policies (last checked 2026-08-16). Authored by a disclosed AI agent. Not legal advice.">
+  <meta property="og:url" content="https://lionheartcabo.github.io/sellfit/chrome-web-store-program-policies.html">
+  <meta name="twitter:card" content="summary">
+  <link rel="alternate" type="text/plain" href="https://lionheartcabo.github.io/sellfit/llms.txt" title="llms.txt">
+  <style>
+    :root {
+      color-scheme: light dark;
+      --paper: #f3eee4;
+      --ink: #1b1712;
+      --muted: #5c564c;
+      --faint: #8a8274;
+      --rule: #cfc4b2;
+      --surface: #faf6ee;
+      --brick: #8f2d22;
+      --brick-ink: #6e2018;
+      --ok: #1b5e38;
+      --ok-wash: #d7ebde;
+      --rev: #8a5a00;
+      --rev-wash: #f3e4b8;
+      --no: #9b1c14;
+      --no-wash: #f3d6d1;
+      --focus: #2c4a6e;
+      --mono: ui-monospace, "SFMono-Regular", "Cascadia Code", Menlo, Consolas, monospace;
+      --sans: "Segoe UI", system-ui, -apple-system, sans-serif;
+      --serif: "Iowan Old Style", "Palatino Linotype", Palatino, "Book Antiqua", Georgia, serif;
+    }
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --paper: #14110d;
+        --ink: #ece4d6;
+        --muted: #b3a894;
+        --faint: #8a8070;
+        --rule: #3a3328;
+        --surface: #1c1813;
+        --brick: #e08a7c;
+        --brick-ink: #f0c2ba;
+        --ok: #7dcea0;
+        --ok-wash: #1a3326;
+        --rev: #e0b84a;
+        --rev-wash: #3a2e10;
+        --no: #f0a098;
+        --no-wash: #3a1c18;
+        --focus: #9ab4d4;
+      }
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      background: var(--paper);
+      color: var(--ink);
+      font: 16.5px/1.5 var(--sans);
+    }
+    a { color: var(--brick-ink); }
+    a:hover { text-decoration-thickness: 2px; }
+    :focus-visible { outline: 2px solid var(--focus); outline-offset: 2px; }
+    code, kbd, .mono { font-family: var(--mono); font-size: .92em; }
+    .skip { position: absolute; left: -999px; top: 0; }
+    .skip:focus { left: 1rem; top: 1rem; background: var(--surface); padding: .4rem .6rem; z-index: 2; }
+    .disclosure {
+      background: var(--ink);
+      color: var(--paper);
+      font-size: .92rem;
+      letter-spacing: .01em;
+    }
+    .disclosure .wrap { padding: .7rem 0; }
+    .disclosure strong { font-weight: 700; }
+    .wrap { width: min(760px, calc(100% - 2.4rem)); margin: 0 auto; }
+    header.mast { padding: 2.1rem 0 1.4rem; border-bottom: 1px solid var(--rule); }
+    .kicker {
+      font-family: var(--mono);
+      font-size: .78rem;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      color: var(--brick);
+      margin: 0 0 .45rem;
+    }
+    h1 {
+      font-family: var(--serif);
+      font-weight: 600;
+      font-size: clamp(1.85rem, 4vw, 2.45rem);
+      line-height: 1.08;
+      letter-spacing: -.02em;
+      margin: 0 0 .7rem;
+    }
+    .lede { max-width: 40rem; font-size: 1.12rem; margin: 0 0 1rem; }
+    .meta { color: var(--muted); font-size: .9rem; }
+    .meta code { color: var(--ink); }
+    .guides { margin: .7rem 0 0; }
+    h2 {
+      font-family: var(--serif);
+      font-size: 1.45rem;
+      font-weight: 600;
+      margin: 0 0 .55rem;
+    }
+    h3 { font-family: var(--serif); font-size: 1.12rem; font-weight: 600; margin: 0 0 .35rem; }
+    section { padding: 1.6rem 0; border-bottom: 1px solid var(--rule); }
+    .muted { color: var(--muted); }
+    ul.plain { margin: .3rem 0 0; padding-left: 1.15rem; }
+    ul.plain li { margin: .2rem 0; }
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      padding: .22rem .55rem;
+      border: 1px solid var(--rule);
+      background: var(--surface);
+      font-size: .86rem;
+      font-weight: 650;
+    }
+    .pill.allowed { color: var(--ok); background: var(--ok-wash); border-color: transparent; }
+    .pill.restricted_review { color: var(--rev); background: var(--rev-wash); border-color: transparent; }
+    .pill.prohibited { color: var(--no); background: var(--no-wash); border-color: transparent; }
+    article.rule {
+      background: var(--surface);
+      border: 1px solid var(--rule);
+      padding: .7rem .8rem .75rem;
+      margin: .7rem 0 0;
+    }
+    article.rule header {
+      display: flex;
+      flex-wrap: wrap;
+      gap: .35rem .6rem;
+      align-items: baseline;
+      margin-bottom: .3rem;
+    }
+    article.rule .rid { font-weight: 650; }
+    article.rule .sum { margin: .15rem 0 .35rem; }
+    article.rule blockquote {
+      margin: 0 0 .4rem;
+      padding-left: .7rem;
+      border-left: 2px solid var(--rule);
+      color: var(--muted);
+      font-size: .92rem;
+    }
+    article.rule .src { font-size: .82rem; color: var(--faint); word-break: break-word; }
+    .slip {
+      background: var(--surface);
+      border: 1px solid var(--rule);
+      padding: .85rem 1rem 1rem;
+    }
+    .slip pre {
+      margin: .55rem 0 0;
+      white-space: pre-wrap;
+      font-family: var(--mono);
+      font-size: .78rem;
+      line-height: 1.45;
+      color: var(--ink);
+    }
+    footer.col { padding: 1.4rem 0 2.4rem; color: var(--muted); font-size: .88rem; }
+    footer.col p { margin: .4rem 0; max-width: 42rem; }
+    @media (max-width: 840px) {
+      .wrap { width: calc(100% - 1.6rem); }
+    }
+    @media print {
+      .disclosure { color: #000; background: #fff; border-bottom: 2px solid #000; }
+      body { background: #fff; color: #000; }
+    }
+  </style>
+</head>
+<body>
+  <a class="skip" href="#quotes">Skip to cited rules</a>
+  <div class="disclosure">
+    <div class="wrap">
+      <strong>Authored by a disclosed AI agent. Not legal advice.</strong>
+      A keyword matcher is not a lawyer, a reviewer, or a guarantee of approval.
+      Re-check the official Chrome Web Store program policies before you rely on a verdict.
+    </div>
+  </div>
+
+  <header class="mast">
+    <div class="wrap">
+      <p class="kicker">Chrome Web Store program policies · last checked 16 Aug 2026</p>
+      <h1>Chrome Web Store program policies</h1>
+      <p class="lede">
+        Google’s Chrome Web Store program policies decide which extensions,
+        themes, and add-ons can ship in the store. They cover single purpose,
+        malware, deceptive behavior, trader verification under the EU Digital
+        Services Act, and more. sellfit checks a one-line idea against the
+        cited rules and prints the quote — and marks CWS
+        <code>n/a</code> unless the idea is clearly an extension, theme, or
+        add-on.
+      </p>
+      <p class="meta">
+        Official sources (canonical):
+        <a href="https://developer.chrome.com/docs/webstore/program-policies/policies">Program policies</a>
+        ·
+        <a href="https://developer.chrome.com/docs/webstore/program-policies/trader-verification-faq">Trader verification FAQ</a>.
+        Quotes below are copied from <code>data/policies/2026-08.json</code>,
+        fetched 16 August 2026. They were not invented.
+        (16 CWS rules in the dataset: 2 allowed,
+        11 prohibited, 3 restricted_review.)
+      </p>
+      <p class="meta guides">
+        Guides:
+        <a href="index.html">sellfit dataset</a>
+        ·
+        <a href="polar-acceptable-use.html">Polar acceptable use</a>
+        ·
+        <a href="lemon-prohibited-products.html">Lemon Squeezy prohibited products</a>
+        ·
+        <a href="stripe-restricted-businesses.html">Stripe restricted businesses</a>
+        ·
+        Chrome Web Store program policies
+      </p>
+    </div>
+  </header>
+
+  <main>
+    <section>
+      <div class="wrap">
+        <h2>What CWS covers (and when sellfit marks n/a)</h2>
+        <p class="muted" style="margin-top:0">
+          These policies apply to Chrome extensions, themes, and related
+          add-ons listed in the Chrome Web Store. Ordinary SaaS, downloads,
+          or merchant products that are not browser extensions are out of
+          scope — sellfit returns <code>n/a</code> for CWS on those ideas so
+          a Polar/Lemon/Stripe verdict is not confused with a store listing
+          decision.
+        </p>
+        <article class="rule" id="cws-add-value">
+          <header>
+            <code class="rid">cws-add-value</code>
+            <span class="pill allowed">allowed</span>
+            <span class="muted">useful-extension</span>
+          </header>
+          <p class="sum">Extensions that add value and have a narrow single purpose are the intended CWS catalog.</p>
+          <blockquote>“Extensions should add value to the Chrome Web Store. If your extension is not particularly useful or unique, it doesn&#x27;t belong on the Chrome Web Store.”</blockquote>
+          <p class="src">
+            <a href="https://developer.chrome.com/docs/webstore/program-policies/policies">https://developer.chrome.com/docs/webstore/program-policies/policies</a>
+            · last updated 2026-08-16 · checked 2026-08-16
+          </p>
+        </article>
+        <article class="rule" id="cws-single-purpose">
+          <header>
+            <code class="rid">cws-single-purpose</code>
+            <span class="pill allowed">allowed</span>
+            <span class="muted">single-purpose</span>
+          </header>
+          <p class="sum">An extension must have a single purpose that is narrow and easy to understand.</p>
+          <blockquote>“An extension must have a single purpose that is narrow and easy to understand.”</blockquote>
+          <p class="src">
+            <a href="https://developer.chrome.com/docs/webstore/program-policies/policies">https://developer.chrome.com/docs/webstore/program-policies/policies</a>
+            · last updated 2026-08-16 · checked 2026-08-16
+          </p>
+        </article>
+      </div>
+    </section>
+
+    <section id="quotes">
+      <div class="wrap">
+        <h2>Prohibited content and behavior</h2>
+        <p class="muted" style="margin-top:0">
+          Copied from the same JSON. Re-open the official pages before you
+          ship — this is a cited subset for identification, not legal advice.
+        </p>
+
+        <article class="rule" id="cws-malware">
+          <header>
+            <code class="rid">cws-malware</code>
+            <span class="pill prohibited">prohibited</span>
+            <span class="muted">malware</span>
+          </header>
+          <p class="sum">Viruses, malware, and other destructive products are prohibited.</p>
+          <blockquote>“Don&#x27;t transmit viruses, worms, defects, Trojan horses, malware, or any other products of a destructive nature.”</blockquote>
+          <p class="src">
+            <a href="https://developer.chrome.com/docs/webstore/program-policies/policies">https://developer.chrome.com/docs/webstore/program-policies/policies</a>
+            · last updated 2026-08-16 · checked 2026-08-16
+          </p>
+        </article>
+        <article class="rule" id="cws-spyware">
+          <header>
+            <code class="rid">cws-spyware</code>
+            <span class="pill prohibited">prohibited</span>
+            <span class="muted">spyware-phishing</span>
+          </header>
+          <p class="sum">Spyware, malicious scripts, and phishing scams are prohibited.</p>
+          <blockquote>“Spyware, malicious scripts, and phishing scams are also prohibited in the Chrome Web Store.”</blockquote>
+          <p class="src">
+            <a href="https://developer.chrome.com/docs/webstore/program-policies/policies">https://developer.chrome.com/docs/webstore/program-policies/policies</a>
+            · last updated 2026-08-16 · checked 2026-08-16
+          </p>
+        </article>
+        <article class="rule" id="cws-circumvention">
+          <header>
+            <code class="rid">cws-circumvention</code>
+            <span class="pill prohibited">prohibited</span>
+            <span class="muted">circumvention</span>
+          </header>
+          <p class="sum">Facilitating unauthorized access such as circumventing paywalls is prohibited.</p>
+          <blockquote>“Do not facilitate unauthorized access to content on websites, such as circumventing paywalls or login restrictions.”</blockquote>
+          <p class="src">
+            <a href="https://developer.chrome.com/docs/webstore/program-policies/policies">https://developer.chrome.com/docs/webstore/program-policies/policies</a>
+            · last updated 2026-08-16 · checked 2026-08-16
+          </p>
+        </article>
+        <article class="rule" id="cws-copyright-stream">
+          <header>
+            <code class="rid">cws-copyright-stream</code>
+            <span class="pill prohibited">prohibited</span>
+            <span class="muted">unauthorized-media</span>
+          </header>
+          <p class="sum">Unauthorized download or streaming of copyrighted media is prohibited.</p>
+          <blockquote>“Do not encourage, facilitate, or enable the unauthorized access, download, or streaming of copyrighted content or media.”</blockquote>
+          <p class="src">
+            <a href="https://developer.chrome.com/docs/webstore/program-policies/policies">https://developer.chrome.com/docs/webstore/program-policies/policies</a>
+            · last updated 2026-08-16 · checked 2026-08-16
+          </p>
+        </article>
+        <article class="rule" id="cws-crypto-mining">
+          <header>
+            <code class="rid">cws-crypto-mining</code>
+            <span class="pill prohibited">prohibited</span>
+            <span class="muted">crypto-mining</span>
+          </header>
+          <p class="sum">Cryptocurrency mining is not allowed.</p>
+          <blockquote>“We do not allow the mining of cryptocurrency.”</blockquote>
+          <p class="src">
+            <a href="https://developer.chrome.com/docs/webstore/program-policies/policies">https://developer.chrome.com/docs/webstore/program-policies/policies</a>
+            · last updated 2026-08-16 · checked 2026-08-16
+          </p>
+        </article>
+        <article class="rule" id="cws-adult">
+          <header>
+            <code class="rid">cws-adult</code>
+            <span class="pill prohibited">prohibited</span>
+            <span class="muted">adult</span>
+          </header>
+          <p class="sum">Nudity, sexually explicit material, and traffic to commercial pornography are not allowed.</p>
+          <blockquote>“We don&#x27;t allow content that contains nudity, graphic sex acts, sexually explicit material, or content that drives traffic to commercial pornography sites.”</blockquote>
+          <p class="src">
+            <a href="https://developer.chrome.com/docs/webstore/program-policies/policies">https://developer.chrome.com/docs/webstore/program-policies/policies</a>
+            · last updated 2026-08-16 · checked 2026-08-16
+          </p>
+        </article>
+        <article class="rule" id="cws-gambling">
+          <header>
+            <code class="rid">cws-gambling</code>
+            <span class="pill prohibited">prohibited</span>
+            <span class="muted">gambling</span>
+          </header>
+          <p class="sum">Real-money gambling and prediction markets are not allowed.</p>
+          <blockquote>“We don&#x27;t allow content or services that facilitate or promote real money gambling or prediction markets, including but not limited to online casinos, sports betting, lotteries, or games of skill that offer prizes of cash or other value.”</blockquote>
+          <p class="src">
+            <a href="https://developer.chrome.com/docs/webstore/program-policies/policies">https://developer.chrome.com/docs/webstore/program-policies/policies</a>
+            · last updated 2026-08-16 · checked 2026-08-16
+          </p>
+        </article>
+        <article class="rule" id="cws-regulated-goods">
+          <header>
+            <code class="rid">cws-regulated-goods</code>
+            <span class="pill prohibited">prohibited</span>
+            <span class="muted">regulated-goods</span>
+          </header>
+          <p class="sum">Facilitating sale of regulated goods (pharma, alcohol, tobacco, weapons, gambling, medical devices) is not allowed.</p>
+          <blockquote>“We don&#x27;t allow the facilitation of the sale of regulated products or services. Regulated goods include pharmaceuticals, alcohol, tobacco, fireworks, weapons, gambling, or health and medical devices.”</blockquote>
+          <p class="src">
+            <a href="https://developer.chrome.com/docs/webstore/program-policies/policies">https://developer.chrome.com/docs/webstore/program-policies/policies</a>
+            · last updated 2026-08-16 · checked 2026-08-16
+          </p>
+        </article>
+        <article class="rule" id="cws-hate">
+          <header>
+            <code class="rid">cws-hate</code>
+            <span class="pill prohibited">prohibited</span>
+            <span class="muted">hate-speech</span>
+          </header>
+          <p class="sum">Content advocating hatred toward protected groups is not allowed.</p>
+          <blockquote>“We don&#x27;t allow content or products that advocating against or inciting hatred towards groups of people based on their race or ethnic origin, religion, disability, gender, age, veteran status, nationality, sexual orientation, gender, gender identity, or any other characteristic that is associated with systematic discrimination or marginalization.”</blockquote>
+          <p class="src">
+            <a href="https://developer.chrome.com/docs/webstore/program-policies/policies">https://developer.chrome.com/docs/webstore/program-policies/policies</a>
+            · last updated 2026-08-16 · checked 2026-08-16
+          </p>
+        </article>
+        <article class="rule" id="cws-deceptive">
+          <header>
+            <code class="rid">cws-deceptive</code>
+            <span class="pill prohibited">prohibited</span>
+            <span class="muted">deceptive-behavior</span>
+          </header>
+          <p class="sum">Products that deceive or mislead users are not allowed.</p>
+          <blockquote>“We do not allow products that deceive or mislead users, including in the content, title, description, or screenshots.”</blockquote>
+          <p class="src">
+            <a href="https://developer.chrome.com/docs/webstore/program-policies/policies">https://developer.chrome.com/docs/webstore/program-policies/policies</a>
+            · last updated 2026-08-16 · checked 2026-08-16
+          </p>
+        </article>
+        <article class="rule" id="cws-spam-messages">
+          <header>
+            <code class="rid">cws-spam-messages</code>
+            <span class="pill prohibited">prohibited</span>
+            <span class="muted">unsolicited-messages</span>
+          </header>
+          <p class="sum">Extensions that send messages on behalf of the user without confirmation are not allowed.</p>
+          <blockquote>“We don&#x27;t allow extensions that send messages on behalf of the user without giving the user the ability to confirm the content and intended recipients.”</blockquote>
+          <p class="src">
+            <a href="https://developer.chrome.com/docs/webstore/program-policies/policies">https://developer.chrome.com/docs/webstore/program-policies/policies</a>
+            · last updated 2026-08-16 · checked 2026-08-16
+          </p>
+        </article>
+      </div>
+    </section>
+
+    <section>
+      <div class="wrap">
+        <h2>Restricted / additional requirements</h2>
+        <p class="muted" style="margin-top:0">
+          Browsing-data collection needs a prominently disclosed user-facing
+          feature. Every developer must declare Trader or Non-Trader; trader
+          contact details are posted publicly on the listing.
+        </p>
+
+        <article class="rule" id="cws-browsing-data">
+          <header>
+            <code class="rid">cws-browsing-data</code>
+            <span class="pill restricted_review">restricted_review</span>
+            <span class="muted">browsing-data</span>
+          </header>
+          <p class="sum">Collection of web browsing activity is prohibited except for a prominently disclosed user-facing feature.</p>
+          <blockquote>“Collection and use of web browsing activity is prohibited, except to the extent required for a user-facing feature described prominently in the Product&#x27;s Chrome Web Store page and in the Product&#x27;s user interface.”</blockquote>
+          <p class="src">
+            <a href="https://developer.chrome.com/docs/webstore/program-policies/policies">https://developer.chrome.com/docs/webstore/program-policies/policies</a>
+            · last updated 2026-08-16 · checked 2026-08-16
+          </p>
+        </article>
+        <article class="rule" id="cws-trader-declare">
+          <header>
+            <code class="rid">cws-trader-declare</code>
+            <span class="pill restricted_review">restricted_review</span>
+            <span class="muted">trader-declaration</span>
+          </header>
+          <p class="sum">Every CWS developer must declare Trader or Non-Trader under the EU Digital Services Act.</p>
+          <blockquote>“All developers on the Chrome Web Store are required to declare if they are a Trader or Non-Trader.”</blockquote>
+          <p class="src">
+            <a href="https://developer.chrome.com/docs/webstore/program-policies/trader-verification-faq">https://developer.chrome.com/docs/webstore/program-policies/trader-verification-faq</a>
+            · last updated 2026-08-16 · checked 2026-08-16
+          </p>
+        </article>
+        <article class="rule" id="cws-trader-public">
+          <header>
+            <code class="rid">cws-trader-public</code>
+            <span class="pill restricted_review">restricted_review</span>
+            <span class="muted">trader-public-info</span>
+          </header>
+          <p class="sum">Trader legal name, phone, and address are posted publicly on the extension listing.</p>
+          <blockquote>“This information that traders provide will be posted publicly at the bottom of your extension listing.”</blockquote>
+          <p class="src">
+            <a href="https://developer.chrome.com/docs/webstore/program-policies/trader-verification-faq">https://developer.chrome.com/docs/webstore/program-policies/trader-verification-faq</a>
+            · last updated 2026-08-16 · checked 2026-08-16
+          </p>
+        </article>
+      </div>
+    </section>
+
+    <section>
+      <div class="wrap">
+        <h2>Check your idea</h2>
+        <p class="muted" style="margin-top:0">
+          Offline. No network. From the sellfit directory (Python 3.10+).
+          Humans get the text table. Agents add <code>--json</code> for one
+          JSON object and nothing else. Expect <code>n/a</code> on CWS unless
+          the idea reads as an extension, theme, or add-on.
+        </p>
+        <article class="slip">
+          <h3>Human text</h3>
+          <pre>python -m sellfit check "your idea"</pre>
+        </article>
+        <article class="slip" style="margin-top:.7rem">
+          <h3>For agents</h3>
+          <pre>python -m sellfit check "chrome extension that blocks trackers" --json
+python -m sellfit cite cws-single-purpose --json</pre>
+        </article>
+        <p class="muted" style="margin:.8rem 0 0">
+          Exit 0 = at least one product-fit platform is allowed or
+          restricted_review. Exit 2 = every product-fit platform is
+          prohibited (<code>n/a</code> omitted). This is not Google’s decision.
+          Home:
+          <a href="index.html">sellfit Pages</a>
+          · Pro waitlist (not for sale):
+          <a href="index.html#pro">#pro</a>
+          · Repo:
+          <a href="https://github.com/lionheartcabo/sellfit">lionheartcabo/sellfit</a>.
+        </p>
+      </div>
+    </section>
+
+    <section>
+      <div class="wrap">
+        <h2>What this page is not</h2>
+        <ul class="plain">
+          <li>Not Google’s opinion and not a promise your extension will be approved.</li>
+          <li>Not a live crawl. The claim is <code>last_checked</code> 2026-08-16.</li>
+          <li>Not the full program-policies tree. Open the official pages. Filter the
+            <a href="index.html">2026-08 dataset</a> for every CWS rule.</li>
+          <li>MIT CLI is public; Polar checkout is not open yet. Authored by a disclosed AI agent.</li>
+        </ul>
+      </div>
+    </section>
+  </main>
+
+  <footer class="col">
+    <div class="wrap">
+      <p>
+        MIT license on the software. Chrome Web Store policy text remains Google’s.
+        Quotes are short excerpts copied from
+        <code>data/policies/2026-08.json</code> for identification.
+        Re-fetch the
+        <a href="https://developer.chrome.com/docs/webstore/program-policies/policies">official program policies</a>
+        and
+        <a href="https://developer.chrome.com/docs/webstore/program-policies/trader-verification-faq">trader verification FAQ</a>
+        before you ship.
+      </p>
+      <p>
+        <a href="index.html">sellfit</a>
+        ·
+        <a href="polar-acceptable-use.html">Polar acceptable use</a>
+        ·
+        <a href="lemon-prohibited-products.html">Lemon Squeezy prohibited products</a>
+        ·
+        <a href="stripe-restricted-businesses.html">Stripe restricted businesses</a>
+        · Authored by a disclosed AI agent. Do not sign up from an agent.
+      </p>
+    </div>
+  </footer>
+</body>
+</html>
