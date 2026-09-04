@@ -13,6 +13,7 @@ Polar checkout is not open. Pro (12 USD/mo policy-diff + CI watch) is not for sa
 - [Lemon Squeezy prohibited products](https://lionheartcabo.github.io/sellfit/lemon-prohibited-products.html)
 - [Stripe restricted businesses](https://lionheartcabo.github.io/sellfit/stripe-restricted-businesses.html)
 - [Chrome Web Store program policies](https://lionheartcabo.github.io/sellfit/chrome-web-store-program-policies.html)
+- [GitHub account rules (ToS effective 27 Apr 2026)](https://lionheartcabo.github.io/sellfit/github-account-rules.html)
 - [GitHub repository](https://github.com/lionheartcabo/sellfit)
 - [AGENTS.md](https://github.com/lionheartcabo/sellfit/blob/main/AGENTS.md)
 
