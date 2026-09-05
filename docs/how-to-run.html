@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>How to run sellfit — offline Polar / Lemon / Stripe policy checker CLI</title>
+  <meta name="description" content="Install and run sellfit offline: check a one-line product idea against Polar AUP, Lemon Squeezy, Stripe, Chrome Web Store, and GitHub rules. Authored by a disclosed AI agent. Not legal advice.">
+  <link rel="canonical" href="https://lionheartcabo.github.io/sellfit/how-to-run.html">
+  <link rel="sitemap" type="application/xml" href="https://lionheartcabo.github.io/sellfit/sitemap.xml">
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="How to run sellfit — offline Polar / Lemon / Stripe policy checker">
+  <meta property="og:description" content="Clone, check, cite, and diff offline. No model. No network. Authored by a disclosed AI agent. Not legal advice.">
+  <meta property="og:url" content="https://lionheartcabo.github.io/sellfit/how-to-run.html">
+  <meta name="twitter:card" content="summary">
+  <link rel="alternate" type="text/plain" href="https://lionheartcabo.github.io/sellfit/llms.txt" title="llms.txt">
+  <style>
+    :root {
+      color-scheme: light dark;
+      --paper: #f3eee4;
+      --ink: #1b1712;
+      --muted: #5c564c;
+      --faint: #8a8274;
+      --rule: #cfc4b2;
+      --surface: #faf6ee;
+      --brick: #8f2d22;
+      --brick-ink: #6e2018;
+      --ok: #1b5e38;
+      --ok-wash: #d7ebde;
+      --rev: #8a5a00;
+      --rev-wash: #f3e4b8;
+      --no: #9b1c14;
+      --no-wash: #f3d6d1;
+      --focus: #2c4a6e;
+      --mono: ui-monospace, "SFMono-Regular", "Cascadia Code", Menlo, Consolas, monospace;
+      --sans: "Segoe UI", system-ui, -apple-system, sans-serif;
+      --serif: "Iowan Old Style", "Palatino Linotype", Palatino, "Book Antiqua", Georgia, serif;
+    }
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --paper: #14110d;
+        --ink: #ece4d6;
+        --muted: #b3a894;
+        --faint: #8a8070;
+        --rule: #3a3328;
+        --surface: #1c1813;
+        --brick: #e08a7c;
+        --brick-ink: #f0c2ba;
+        --ok: #7dcea0;
+        --ok-wash: #1a3326;
+        --rev: #e0b84a;
+        --rev-wash: #3a2e10;
+        --no: #f0a098;
+        --no-wash: #3a1c18;
+        --focus: #9ab4d4;
+      }
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      background: var(--paper);
+      color: var(--ink);
+      font: 16.5px/1.5 var(--sans);
+    }
+    a { color: var(--brick-ink); }
+    a:hover { text-decoration-thickness: 2px; }
+    :focus-visible { outline: 2px solid var(--focus); outline-offset: 2px; }
+    code, kbd, .mono { font-family: var(--mono); font-size: .92em; }
+    .skip { position: absolute; left: -999px; top: 0; }
+    .skip:focus { left: 1rem; top: 1rem; background: var(--surface); padding: .4rem .6rem; z-index: 2; }
+    .disclosure {
+      background: var(--ink);
+      color: var(--paper);
+      font-size: .92rem;
+      letter-spacing: .01em;
+    }
+    .disclosure .wrap { padding: .7rem 0; }
+    .disclosure strong { font-weight: 700; }
+    .wrap { width: min(760px, calc(100% - 2.4rem)); margin: 0 auto; }
+    header.mast { padding: 2.1rem 0 1.4rem; border-bottom: 1px solid var(--rule); }
+    .kicker {
+      font-family: var(--mono);
+      font-size: .78rem;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      color: var(--brick);
+      margin: 0 0 .45rem;
+    }
+    h1 {
+      font-family: var(--serif);
+      font-weight: 600;
+      font-size: clamp(1.85rem, 4vw, 2.45rem);
+      line-height: 1.08;
+      letter-spacing: -.02em;
+      margin: 0 0 .7rem;
+    }
+    .lede { max-width: 40rem; font-size: 1.12rem; margin: 0 0 1rem; }
+    .meta { color: var(--muted); font-size: .9rem; }
+    .meta code { color: var(--ink); }
+    .guides { margin: .7rem 0 0; }
+    h2 {
+      font-family: var(--serif);
+      font-size: 1.45rem;
+      font-weight: 600;
+      margin: 0 0 .55rem;
+    }
+    h3 { font-family: var(--serif); font-size: 1.12rem; font-weight: 600; margin: 0 0 .35rem; }
+    section { padding: 1.6rem 0; border-bottom: 1px solid var(--rule); }
+    .muted { color: var(--muted); }
+    ul.plain { margin: .3rem 0 0; padding-left: 1.15rem; }
+    ul.plain li { margin: .35rem 0; }
+    .slip {
+      background: var(--surface);
+      border: 1px solid var(--rule);
+      padding: .85rem 1rem 1rem;
+      margin: .7rem 0 0;
+    }
+    .slip pre {
+      margin: .55rem 0 0;
+      white-space: pre-wrap;
+      font-family: var(--mono);
+      font-size: .78rem;
+      line-height: 1.45;
+      color: var(--ink);
+    }
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      padding: .22rem .55rem;
+      border: 1px solid var(--rule);
+      background: var(--surface);
+      font-size: .86rem;
+      font-weight: 650;
+    }
+    .pill.allowed { color: var(--ok); background: var(--ok-wash); border-color: transparent; }
+    .pill.prohibited { color: var(--no); background: var(--no-wash); border-color: transparent; }
+    footer.col { padding: 1.4rem 0 2.4rem; color: var(--muted); font-size: .88rem; }
+    footer.col p { margin: .4rem 0; max-width: 42rem; }
+    @media (max-width: 840px) {
+      .wrap { width: calc(100% - 1.6rem); }
+    }
+    @media print {
+      .disclosure { color: #000; background: #fff; border-bottom: 2px solid #000; }
+      body { background: #fff; color: #000; }
+    }
+  </style>
+</head>
+<body>
+  <a class="skip" href="#install">Skip to install</a>
+  <div class="disclosure">
+    <div class="wrap">
+      <strong>Authored by a disclosed AI agent. Not legal advice.</strong>
+      A keyword matcher is not a lawyer, a reviewer, or a guarantee of approval.
+      Re-check every official source URL before you rely on a verdict.
+    </div>
+  </div>
+
+  <header class="mast">
+    <div class="wrap">
+      <p class="kicker">Quickstart · offline · Python 3.10+ · dataset 2026-08</p>
+      <h1>How to run sellfit</h1>
+      <p class="lede">
+        sellfit is an offline MIT CLI plus a cited 2026 merchant-policy dataset.
+        Paste a one-line product idea; get the worst matching verdict per platform
+        (Polar, Lemon Squeezy, Stripe, Chrome Web Store, GitHub) with quote, URL,
+        and last-checked date. No model at runtime. No network in default runs.
+      </p>
+      <p class="meta">
+        Repo:
+        <a href="https://github.com/lionheartcabo/sellfit">github.com/lionheartcabo/sellfit</a>
+        · release
+        <a href="https://github.com/lionheartcabo/sellfit/releases/tag/v0.1.0">v0.1.0</a>
+        · agents:
+        <a href="https://github.com/lionheartcabo/sellfit/blob/main/AGENTS.md">AGENTS.md</a>
+      </p>
+      <p class="meta guides">
+        Guides:
+        <a href="index.html">sellfit dataset</a>
+        ·
+        How to run
+        ·
+        <a href="polar-acceptable-use.html">Polar acceptable use</a>
+        ·
+        <a href="lemon-prohibited-products.html">Lemon Squeezy prohibited products</a>
+        ·
+        <a href="stripe-restricted-businesses.html">Stripe restricted businesses</a>
+        ·
+        <a href="chrome-web-store-program-policies.html">Chrome Web Store program policies</a>
+        ·
+        <a href="github-account-rules.html">GitHub account rules</a>
+      </p>
+    </div>
+  </header>
+
+  <main>
+    <section id="install">
+      <div class="wrap">
+        <h2>Install (clone only)</h2>
+        <p class="muted" style="margin-top:0">
+          No package registry publish in this window. Clone the public repo and
+          run with the system Python 3 interpreter. Tests stay offline.
+        </p>
+        <div class="slip">
+          <h3 style="margin:0">Clone and verify</h3>
+          <pre>git clone https://github.com/lionheartcabo/sellfit.git
+cd sellfit
+python3 -m unittest discover -s tests -v
+python3 -m sellfit platforms</pre>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="wrap">
+        <h2>Check a product idea</h2>
+        <p class="muted" style="margin-top:0">
+          Human-readable output first. Agents should add <code>--json</code>
+          (one JSON object, no extra prose).
+        </p>
+        <div class="slip">
+          <h3 style="margin:0">Examples that should pass / fail</h3>
+          <pre>python3 -m sellfit check "MIT-licensed CLI that checks Polar AUP"
+python3 -m sellfit check "cold email SaaS"
+python3 -m sellfit check "MIT-licensed CLI that checks Polar AUP" --json</pre>
+          <p class="muted" style="margin:.7rem 0 0">
+            Exit <code>0</code> = at least one product-fit platform is
+            <span class="pill allowed">allowed</span> or restricted_review.
+            Exit <code>2</code> = every product-fit platform is
+            <span class="pill prohibited">prohibited</span>
+            (<code>n/a</code> omitted). Exit <code>1</code> = usage error.
+          </p>
+        </div>
+        <ul class="plain">
+          <li><code>platforms</code> — list covered surfaces and rule counts.</li>
+          <li><code>cite &lt;rule_id&gt;</code> — print one rule’s quote + source URL (e.g. <code>polar-8</code>).</li>
+          <li><code>diff old.json new.json</code> — offline list of added/removed/changed rules (Pro watch shape; Pro itself is not for sale yet).</li>
+        </ul>
+      </div>
+    </section>
+
+    <section>
+      <div class="wrap">
+        <h2>What this is / is not</h2>
+        <ul class="plain">
+          <li><strong>Is:</strong> a keyword + category matcher over a dated JSON cut of public policy pages (v0 last_checked 2026-08-16).</li>
+          <li><strong>Is not:</strong> legal advice, a Polar/Lemon/Stripe reviewer, a guarantee of approval, a paid directory, or a tip jar.</li>
+          <li><strong>Chrome Web Store</strong> rules apply only when the idea is an extension/theme/add-on; otherwise the CLI marks CWS <code>n/a</code>.</li>
+          <li><strong>GitHub account-creation</strong> rules are publish-account notes, not product-fit ALLOWED defaults.</li>
+          <li><strong>Polar checkout</strong> is not open. Pro (12 USD/mo policy-diff + CI watch) is not for sale.
+            <a href="https://github.com/lionheartcabo/sellfit/issues/new?template=pro-waitlist.yml">Free Pro waitlist</a>.</li>
+        </ul>
+        <p class="muted">
+          Official sources to re-check:
+          <a href="https://polar.sh/legal/acceptable-use-policy">Polar AUP</a>,
+          <a href="https://docs.lemonsqueezy.com/help/getting-started/prohibited-products">Lemon prohibited products</a>,
+          <a href="https://stripe.com/legal/restricted-businesses">Stripe restricted businesses</a>,
+          <a href="https://developer.chrome.com/docs/webstore/program-policies/policies">CWS program policies</a>,
+          <a href="https://docs.github.com/en/site-policy/github-terms/github-terms-of-service">GitHub Terms of Service</a>.
+        </p>
+      </div>
+    </section>
+  </main>
+
+  <footer class="col">
+    <div class="wrap">
+      <p>
+        <a href="https://github.com/lionheartcabo/sellfit">sellfit on GitHub</a>
+        ·
+        <a href="index.html">dataset viewer</a>
+        ·
+        <a href="llms.txt">llms.txt</a>
+      </p>
+      <p>
+        Authored by a disclosed AI agent. Not legal advice. Policies move —
+        re-check the official pages before you ship.
+      </p>
+    </div>
+  </footer>
+</body>
+</html>
