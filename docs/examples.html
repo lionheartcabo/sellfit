@@ -1,0 +1,512 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>sellfit examples — Polar / Lemon / Stripe / CWS / GitHub check outputs</title>
+  <meta name="description" content="Real offline sellfit CLI outputs for common product ideas: MIT CLI (allowed), cold email (prohibited), AI image generator (restricted), Chrome extension, OSINT people search. Authored by a disclosed AI agent. Not legal advice.">
+  <link rel="canonical" href="https://lionheartcabo.github.io/sellfit/examples.html">
+  <link rel="sitemap" type="application/xml" href="https://lionheartcabo.github.io/sellfit/sitemap.xml">
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="sellfit examples — offline Polar / Lemon / Stripe check outputs">
+  <meta property="og:description" content="Five real offline CLI runs. No model. No network. Authored by a disclosed AI agent. Not legal advice.">
+  <meta property="og:url" content="https://lionheartcabo.github.io/sellfit/examples.html">
+  <meta name="twitter:card" content="summary">
+  <link rel="alternate" type="text/plain" href="https://lionheartcabo.github.io/sellfit/llms.txt" title="llms.txt">
+  <style>
+    :root {
+      color-scheme: light dark;
+      --paper: #f3eee4;
+      --ink: #1b1712;
+      --muted: #5c564c;
+      --faint: #8a8274;
+      --rule: #cfc4b2;
+      --surface: #faf6ee;
+      --brick: #8f2d22;
+      --brick-ink: #6e2018;
+      --ok: #1b5e38;
+      --ok-wash: #d7ebde;
+      --rev: #8a5a00;
+      --rev-wash: #f3e4b8;
+      --no: #9b1c14;
+      --no-wash: #f3d6d1;
+      --focus: #2c4a6e;
+      --mono: ui-monospace, "SFMono-Regular", "Cascadia Code", Menlo, Consolas, monospace;
+      --sans: "Segoe UI", system-ui, -apple-system, sans-serif;
+      --serif: "Iowan Old Style", "Palatino Linotype", Palatino, "Book Antiqua", Georgia, serif;
+    }
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --paper: #14110d;
+        --ink: #ece4d6;
+        --muted: #b3a894;
+        --faint: #8a8070;
+        --rule: #3a3328;
+        --surface: #1c1813;
+        --brick: #e08a7c;
+        --brick-ink: #f0c2ba;
+        --ok: #7dcea0;
+        --ok-wash: #1a3326;
+        --rev: #e0b84a;
+        --rev-wash: #3a2e10;
+        --no: #f0a098;
+        --no-wash: #3a1c18;
+        --focus: #9ab4d4;
+      }
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      background: var(--paper);
+      color: var(--ink);
+      font: 16.5px/1.5 var(--sans);
+    }
+    a { color: var(--brick-ink); }
+    a:hover { text-decoration-thickness: 2px; }
+    :focus-visible { outline: 2px solid var(--focus); outline-offset: 2px; }
+    code, kbd, .mono { font-family: var(--mono); font-size: .92em; }
+    .skip { position: absolute; left: -999px; top: 0; }
+    .skip:focus { left: 1rem; top: 1rem; background: var(--surface); padding: .4rem .6rem; z-index: 2; }
+    .disclosure {
+      background: var(--ink);
+      color: var(--paper);
+      font-size: .92rem;
+      letter-spacing: .01em;
+    }
+    .disclosure .wrap { padding: .7rem 0; }
+    .disclosure strong { font-weight: 700; }
+    .wrap { width: min(760px, calc(100% - 2.4rem)); margin: 0 auto; }
+    header.mast { padding: 2.1rem 0 1.4rem; border-bottom: 1px solid var(--rule); }
+    .kicker {
+      font-family: var(--mono);
+      font-size: .78rem;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      color: var(--brick);
+      margin: 0 0 .45rem;
+    }
+    h1 {
+      font-family: var(--serif);
+      font-weight: 600;
+      font-size: clamp(1.85rem, 4vw, 2.45rem);
+      line-height: 1.08;
+      letter-spacing: -.02em;
+      margin: 0 0 .7rem;
+    }
+    .lede { max-width: 40rem; font-size: 1.12rem; margin: 0 0 1rem; }
+    .meta { color: var(--muted); font-size: .9rem; }
+    .meta code { color: var(--ink); }
+    .guides { margin: .7rem 0 0; }
+    h2 {
+      font-family: var(--serif);
+      font-size: 1.45rem;
+      font-weight: 600;
+      margin: 0 0 .55rem;
+    }
+    h3 { font-family: var(--serif); font-size: 1.12rem; font-weight: 600; margin: 0 0 .35rem; }
+    section { padding: 1.6rem 0; border-bottom: 1px solid var(--rule); }
+    .muted { color: var(--muted); }
+    ul.plain { margin: .3rem 0 0; padding-left: 1.15rem; }
+    ul.plain li { margin: .35rem 0; }
+    .slip {
+      background: var(--surface);
+      border: 1px solid var(--rule);
+      padding: .85rem 1rem 1rem;
+      margin: .7rem 0 0;
+    }
+    .slip pre {
+      margin: .55rem 0 0;
+      white-space: pre-wrap;
+      font-family: var(--mono);
+      font-size: .78rem;
+      line-height: 1.45;
+      color: var(--ink);
+    }
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      padding: .22rem .55rem;
+      border: 1px solid var(--rule);
+      background: var(--surface);
+      font-size: .86rem;
+      font-weight: 650;
+    }
+    .pill.allowed { color: var(--ok); background: var(--ok-wash); border-color: transparent; }
+    .pill.restricted { color: var(--rev); background: var(--rev-wash); border-color: transparent; }
+    .pill.prohibited { color: var(--no); background: var(--no-wash); border-color: transparent; }
+    footer.col { padding: 1.4rem 0 2.4rem; color: var(--muted); font-size: .88rem; }
+    footer.col p { margin: .4rem 0; max-width: 42rem; }
+    @media (max-width: 840px) {
+      .wrap { width: calc(100% - 1.6rem); }
+    }
+    @media print {
+      .disclosure { color: #000; background: #fff; border-bottom: 2px solid #000; }
+      body { background: #fff; color: #000; }
+    }
+  </style>
+</head>
+<body>
+  <a class="skip" href="#examples">Skip to examples</a>
+  <div class="disclosure">
+    <div class="wrap">
+      <strong>Authored by a disclosed AI agent. Not legal advice.</strong>
+      A keyword matcher is not a lawyer, a reviewer, or a guarantee of approval.
+      These are offline runs against the 2026-08 dataset cut (last_checked 2026-08-16).
+      Re-check every official source URL before you rely on a verdict.
+    </div>
+  </div>
+
+  <header class="mast">
+    <div class="wrap">
+      <p class="kicker">Examples · offline · dataset 2026-08 · no model · no network</p>
+      <h1>sellfit check examples</h1>
+      <p class="lede">
+        Five real <code>python3 -m sellfit check</code> runs from the public repo.
+        Outputs are pasted verbatim from an offline CLI session on 2026-09-06.
+        Policies move — treat this page as a demo of the matcher, not a live policy API.
+      </p>
+      <p class="meta">
+        Repo:
+        <a href="https://github.com/lionheartcabo/sellfit">github.com/lionheartcabo/sellfit</a>
+        ·
+        <a href="how-to-run.html">how to run</a>
+        · agents:
+        <a href="https://github.com/lionheartcabo/sellfit/blob/main/AGENTS.md">AGENTS.md</a>
+      </p>
+      <p class="meta guides">
+        Guides:
+        <a href="index.html">sellfit dataset</a>
+        ·
+        <a href="how-to-run.html">How to run</a>
+        ·
+        Examples
+        ·
+        <a href="polar-acceptable-use.html">Polar acceptable use</a>
+        ·
+        <a href="lemon-prohibited-products.html">Lemon Squeezy prohibited products</a>
+        ·
+        <a href="stripe-restricted-businesses.html">Stripe restricted businesses</a>
+        ·
+        <a href="chrome-web-store-program-policies.html">Chrome Web Store program policies</a>
+        ·
+        <a href="github-account-rules.html">GitHub account rules</a>
+      </p>
+    </div>
+  </header>
+
+  <main id="examples">
+    <section>
+      <div class="wrap">
+        <h2>1. MIT CLI against Polar AUP</h2>
+        <p class="muted" style="margin-top:0">
+          Expect Polar / Lemon / Stripe
+          <span class="pill allowed">ALLOWED</span>
+          for ordinary software. CWS and GitHub product-fit stay <code>n/a</code>
+          (not an extension; account-creation is not a product-fit ALLOWED default).
+          Exit <code>0</code>.
+        </p>
+        <div class="slip">
+          <h3 style="margin:0"><code>python3 -m sellfit check "MIT-licensed CLI that checks Polar AUP"</code></h3>
+          <pre>sellfit 0.1.0  dataset 2026-08  OFFLINE
+Authored by a disclosed AI agent. Not legal advice. Offline keyword match only.
+
+idea: MIT-licensed CLI that checks Polar AUP
+tags: cli, software_saas
+
+polar   ALLOWED             polar-a-software  software-saas
+    Polar lists Software and SaaS as acceptable products you may sell.
+    quote: Software &amp; SaaS;
+    https://polar.sh/legal/acceptable-use-policy
+
+lemon   ALLOWED             lemon-accept-digital  digital-goods
+    Lemon Squeezy generally allows digital goods fulfilled through its website.
+    quote: As a general rule, we allow selling of digital goods that can be fulfilled
+    through Lemon Squeezy’s website.
+    https://docs.lemonsqueezy.com/help/getting-started/prohibited-products
+
+stripe  ALLOWED             stripe-scope  unlisted-ordinary-business
+    Stripe's list covers specific prohibited and restricted categories; ordinary
+    software/SaaS is not listed.
+    quote: This page provides information on the types of businesses, products, and
+    industries that can’t use Stripe’s services.
+    https://stripe.com/legal/restricted-businesses
+
+cws     N/A                 —
+    Chrome Web Store policies apply to extensions, themes, and add-ons, not this product
+    kind.
+
+github  N/A                 —
+    No GitHub product-hosting rule matched. Account-creation rules are not a product-fit
+    allowed default.
+    publish-account: github-human-creates — A human must create the GitHub account;
+    machine accounts are permitted if a human sets them up. (who may register, not a
+    product-hosting verdict)
+    https://docs.github.com/en/site-policy/github-terms/github-terms-of-service
+
+overall: at least one product-fit platform is allowed or restricted_review (exit 0)
+Pro watch (12 USD/mo): CI-fail when a cited platform's text changes — not for sale yet.
+</pre>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="wrap">
+        <h2>2. Cold email SaaS</h2>
+        <p class="muted" style="margin-top:0">
+          Expect Polar / Lemon / Stripe
+          <span class="pill prohibited">PROHIBITED</span>
+          (unsolicited marketing / human services / telemarketing). Exit <code>2</code>.
+        </p>
+        <div class="slip">
+          <h3 style="margin:0"><code>python3 -m sellfit check "cold email SaaS"</code></h3>
+          <pre>sellfit 0.1.0  dataset 2026-08  OFFLINE
+Authored by a disclosed AI agent. Not legal advice. Offline keyword match only.
+
+idea: cold email SaaS
+tags: cold_email, lead_gen, outreach, software_saas, unsolicited_marketing
+
+polar   PROHIBITED          polar-8  unsolicited-marketing
+    Advertising, unsolicited marketing, lead generation, bulk SMS, and automated
+    outreach are prohibited.
+    quote: Advertising and unsolicited marketing services, including, but not limited
+    to, lead generation, bulk SMS and automated outreach;
+    https://polar.sh/legal/acceptable-use-policy
+
+lemon   PROHIBITED          lemon-services  human-services
+    Human services of any kind, including marketing and consulting, are prohibited.
+    quote: Services of any kind (including marketing, design, web development,
+    consulting or other related services)
+    https://docs.lemonsqueezy.com/help/getting-started/prohibited-products
+
+stripe  PROHIBITED          stripe-telemarketing  telemarketing
+    Telemarketing is listed among Stripe's prohibited unfair, deceptive, or abusive
+    practices.
+    quote: Telemarketing
+    https://stripe.com/legal/restricted-businesses
+
+cws     N/A                 —
+    Chrome Web Store policies apply to extensions, themes, and add-ons, not this product
+    kind.
+
+github  N/A                 —
+    No GitHub product-hosting rule matched. Account-creation rules are not a product-fit
+    allowed default.
+    publish-account: github-human-creates — A human must create the GitHub account;
+    machine accounts are permitted if a human sets them up. (who may register, not a
+    product-hosting verdict)
+    https://docs.github.com/en/site-policy/github-terms/github-terms-of-service
+
+overall: ALL product-fit platforms prohibited; n/a omitted (exit 2)
+</pre>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="wrap">
+        <h2>3. AI image generator SaaS</h2>
+        <p class="muted" style="margin-top:0">
+          Polar
+          <span class="pill restricted">RESTRICTED_REVIEW</span>
+          for AI content generation; Lemon / Stripe may still show ALLOWED for
+          ordinary digital goods / unlisted software. Exit <code>0</code>
+          because at least one product-fit platform is allowed or restricted_review.
+        </p>
+        <div class="slip">
+          <h3 style="margin:0"><code>python3 -m sellfit check "AI image generator SaaS"</code></h3>
+          <pre>sellfit 0.1.0  dataset 2026-08  OFFLINE
+Authored by a disclosed AI agent. Not legal advice. Offline keyword match only.
+
+idea: AI image generator SaaS
+tags: ai_content, software_saas
+
+polar   RESTRICTED_REVIEW   polar-r-ai  ai-content-generation
+    AI content generation tools (text, image, video, voice) require closer Polar review.
+    quote: AI Content Generation tools (text, image, video, voice);
+    https://polar.sh/legal/acceptable-use-policy
+
+lemon   ALLOWED             lemon-accept-digital  digital-goods
+    Lemon Squeezy generally allows digital goods fulfilled through its website.
+    quote: As a general rule, we allow selling of digital goods that can be fulfilled
+    through Lemon Squeezy’s website.
+    https://docs.lemonsqueezy.com/help/getting-started/prohibited-products
+
+stripe  ALLOWED             stripe-scope  unlisted-ordinary-business
+    Stripe's list covers specific prohibited and restricted categories; ordinary
+    software/SaaS is not listed.
+    quote: This page provides information on the types of businesses, products, and
+    industries that can’t use Stripe’s services.
+    https://stripe.com/legal/restricted-businesses
+
+cws     N/A                 —
+    Chrome Web Store policies apply to extensions, themes, and add-ons, not this product
+    kind.
+
+github  N/A                 —
+    No GitHub product-hosting rule matched. Account-creation rules are not a product-fit
+    allowed default.
+    publish-account: github-human-creates — A human must create the GitHub account;
+    machine accounts are permitted if a human sets them up. (who may register, not a
+    product-hosting verdict)
+    https://docs.github.com/en/site-policy/github-terms/github-terms-of-service
+
+overall: at least one product-fit platform is allowed or restricted_review (exit 0)
+Pro watch (12 USD/mo): CI-fail when a cited platform's text changes — not for sale yet.
+</pre>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="wrap">
+        <h2>4. Chrome tab manager extension</h2>
+        <p class="muted" style="margin-top:0">
+          CWS applies only when the idea is an extension/theme/add-on.
+          Here CWS is
+          <span class="pill allowed">ALLOWED</span>
+          alongside Polar / Lemon / Stripe. Exit <code>0</code>.
+        </p>
+        <div class="slip">
+          <h3 style="margin:0"><code>python3 -m sellfit check "Chrome tab manager extension"</code></h3>
+          <pre>sellfit 0.1.0  dataset 2026-08  OFFLINE
+Authored by a disclosed AI agent. Not legal advice. Offline keyword match only.
+
+idea: Chrome tab manager extension
+tags: chrome_extension, software_saas
+
+polar   ALLOWED             polar-a-software  software-saas
+    Polar lists Software and SaaS as acceptable products you may sell.
+    quote: Software &amp; SaaS;
+    https://polar.sh/legal/acceptable-use-policy
+
+lemon   ALLOWED             lemon-accept-digital  digital-goods
+    Lemon Squeezy generally allows digital goods fulfilled through its website.
+    quote: As a general rule, we allow selling of digital goods that can be fulfilled
+    through Lemon Squeezy’s website.
+    https://docs.lemonsqueezy.com/help/getting-started/prohibited-products
+
+stripe  ALLOWED             stripe-scope  unlisted-ordinary-business
+    Stripe's list covers specific prohibited and restricted categories; ordinary
+    software/SaaS is not listed.
+    quote: This page provides information on the types of businesses, products, and
+    industries that can’t use Stripe’s services.
+    https://stripe.com/legal/restricted-businesses
+
+cws     ALLOWED             cws-add-value  useful-extension
+    Extensions that add value and have a narrow single purpose are the intended CWS
+    catalog.
+    quote: Extensions should add value to the Chrome Web Store. If your extension is not
+    particularly useful or unique, it doesn't belong on the Chrome Web Store.
+    https://developer.chrome.com/docs/webstore/program-policies/policies
+
+github  N/A                 —
+    No GitHub product-hosting rule matched. Account-creation rules are not a product-fit
+    allowed default.
+    publish-account: github-human-creates — A human must create the GitHub account;
+    machine accounts are permitted if a human sets them up. (who may register, not a
+    product-hosting verdict)
+    https://docs.github.com/en/site-policy/github-terms/github-terms-of-service
+
+overall: at least one product-fit platform is allowed or restricted_review (exit 0)
+Pro watch (12 USD/mo): CI-fail when a cited platform's text changes — not for sale yet.
+</pre>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="wrap">
+        <h2>5. OSINT people search tool</h2>
+        <p class="muted" style="margin-top:0">
+          Polar
+          <span class="pill prohibited">PROHIBITED</span>
+          (OSINT / personal data). GitHub API spam / selling user PII also prohibited.
+          Lemon / Stripe may still show ALLOWED on their listed software scope —
+          that is why exit is <code>0</code> (product-fit platforms are not
+          <em>all</em> prohibited). Read every row; do not stop at overall.
+        </p>
+        <div class="slip">
+          <h3 style="margin:0"><code>python3 -m sellfit check "OSINT people search tool"</code></h3>
+          <pre>sellfit 0.1.0  dataset 2026-08  OFFLINE
+Authored by a disclosed AI agent. Not legal advice. Offline keyword match only.
+
+idea: OSINT people search tool
+tags: osint, people_search, personal_data
+
+polar   PROHIBITED          polar-36  osint
+    OSINT platforms that aggregate, search, or expose personal data are prohibited.
+    quote: Open Source Intelligence (OSINT) platforms: Services that aggregate, search,
+    or expose personal data about individuals using public or leaked sources.
+    https://polar.sh/legal/acceptable-use-policy
+
+lemon   ALLOWED             lemon-accept-software  software-saas
+    Software and SaaS are listed as acceptable Lemon Squeezy products.
+    quote: Software &amp; SaaS
+    https://docs.lemonsqueezy.com/help/getting-started/prohibited-products
+
+stripe  ALLOWED             stripe-scope  unlisted-ordinary-business
+    Stripe's list covers specific prohibited and restricted categories; ordinary
+    software/SaaS is not listed.
+    quote: This page provides information on the types of businesses, products, and
+    industries that can’t use Stripe’s services.
+    https://stripe.com/legal/restricted-businesses
+
+cws     N/A                 —
+    Chrome Web Store policies apply to extensions, themes, and add-ons, not this product
+    kind.
+
+github  PROHIBITED          github-api-spam  api-spam-pii
+    Using the GitHub API to download data for spamming or selling users' personal
+    information is prohibited.
+    quote: You may not use the API to download data or Content from GitHub for spamming
+    purposes, including for the purposes of selling GitHub users' personal information,
+    such as to recruiters, headhunters, and job boards.
+    https://docs.github.com/en/site-policy/github-terms/github-terms-of-service
+
+overall: at least one product-fit platform is allowed or restricted_review (exit 0)
+Pro watch (12 USD/mo): CI-fail when a cited platform's text changes — not for sale yet.
+</pre>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="wrap">
+        <h2>Run them yourself</h2>
+        <div class="slip">
+          <pre>git clone https://github.com/lionheartcabo/sellfit.git
+cd sellfit
+python3 -m unittest discover -s tests -v
+python3 -m sellfit check "your idea"
+python3 -m sellfit check "your idea" --json</pre>
+        </div>
+        <ul class="plain">
+          <li><a href="how-to-run.html">How to run</a> — install, exit codes, cite/diff.</li>
+          <li><a href="index.html">Dataset viewer</a> — filter the 2026-08 JSON in the browser.</li>
+          <li>Polar checkout is not open. Pro (12 USD/mo policy-diff + CI watch) is not for sale.
+            <a href="https://github.com/lionheartcabo/sellfit/issues/new?template=pro-waitlist.yml">Free Pro waitlist</a>.</li>
+        </ul>
+      </div>
+    </section>
+  </main>
+
+  <footer class="col">
+    <div class="wrap">
+      <p>
+        <a href="https://github.com/lionheartcabo/sellfit">sellfit on GitHub</a>
+        ·
+        <a href="index.html">dataset viewer</a>
+        ·
+        <a href="how-to-run.html">how to run</a>
+        ·
+        <a href="llms.txt">llms.txt</a>
+      </p>
+      <p>
+        Authored by a disclosed AI agent. Not legal advice. Policies move —
+        re-check the official pages before you ship.
+      </p>
+    </div>
+  </footer>
+</body>
+</html>
